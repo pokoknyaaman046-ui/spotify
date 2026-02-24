@@ -2,31 +2,31 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Spotify - Web Player: Music for everyone</title>
-<link href="https://fonts.googleapis.com/css2?family=Circular+Std:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --green:#1DB954;--green-h:#1ed760;--black:#000;
   --bg:#121212;--bg2:#181818;--bg3:#242424;--bg4:#2a2a2a;--bg5:#3e3e3e;
   --text:#fff;--text2:#b3b3b3;--text3:#6a6a6a;
-  --sidebar:232px;--player:90px;
+  --sidebar:232px;--player:90px;--mobile-nav:64px;
 }
-*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;background:#000}
-body{font-family:'Nunito','Circular Std',sans-serif;color:var(--text);font-size:14px}
+body{font-family:'Nunito','Helvetica Neue',sans-serif;color:var(--text);font-size:14px}
 button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit;outline:none}
 input,textarea,select{font-family:inherit;outline:none}
 a{color:inherit;text-decoration:none}
 img{display:block;object-fit:cover}
-::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:#666}
 
-/* ANIMATION */
+/* ======================== ANIMATIONS ======================== */
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUpFull{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}
 @keyframes eq{0%{height:2px}100%{height:14px}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
@@ -34,8 +34,7 @@ img{display:block;object-fit:cover}
 /* ======================== LOGIN ======================== */
 #loginPage{
   position:fixed;inset:0;background:#000;z-index:1000;
-  display:flex;align-items:center;justify-content:center;
-  overflow-y:auto;
+  display:flex;align-items:center;justify-content:center;overflow-y:auto;
 }
 #loginPage.hide{display:none}
 .login-wrap{
@@ -65,14 +64,8 @@ img{display:block;object-fit:cover}
 .divider{display:flex;align-items:center;gap:10px;width:100%;margin:4px 0 16px}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:#282828}
 .divider span{font-size:14px;font-weight:800;color:#fff}
-.err-box{
-  background:#E91429;color:#fff;font-size:13px;font-weight:700;
-  padding:12px 16px;border-radius:4px;margin-bottom:14px;display:none;
-}
-.succ-box{
-  background:var(--green);color:#000;font-size:13px;font-weight:700;
-  padding:12px 16px;border-radius:4px;margin-bottom:14px;display:none;
-}
+.err-box{background:#E91429;color:#fff;font-size:13px;font-weight:700;padding:12px 16px;border-radius:4px;margin-bottom:14px;display:none}
+.succ-box{background:var(--green);color:#000;font-size:13px;font-weight:700;padding:12px 16px;border-radius:4px;margin-bottom:14px;display:none}
 .field{width:100%;margin-bottom:14px}
 .field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}
 .field input,.field select{
@@ -82,8 +75,7 @@ img{display:block;object-fit:cover}
 .field input:focus,.field select:focus{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.1)}
 .field input::placeholder{color:#6a6a6a}
 .field input.err{border-color:#E91429}
-.forgot{font-size:13px;font-weight:800;color:#fff;text-decoration:underline;
-  display:block;margin-bottom:20px;width:fit-content;cursor:pointer}
+.forgot{font-size:13px;font-weight:800;color:#fff;text-decoration:underline;display:block;margin-bottom:20px;width:fit-content;cursor:pointer}
 .forgot:hover{color:var(--green)}
 .main-btn{
   width:100%;height:50px;background:var(--green);border-radius:500px;
@@ -91,16 +83,11 @@ img{display:block;object-fit:cover}
 }
 .main-btn:hover{background:var(--green-h);transform:scale(1.02)}
 .main-btn:active{transform:scale(.99)}
-.signup-bar{
-  border-top:1px solid #282828;padding-top:20px;margin-top:24px;
-  text-align:center;font-size:15px;color:var(--text2);width:100%;
-}
+.signup-bar{border-top:1px solid #282828;padding-top:20px;margin-top:24px;text-align:center;font-size:15px;color:var(--text2);width:100%}
 .signup-bar a{color:#fff;font-weight:800;text-decoration:underline;cursor:pointer}
 .signup-bar a:hover{color:var(--green)}
 .check-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:14px}
-.check-row input[type=checkbox]{
-  width:16px;height:16px;min-width:16px;margin-top:2px;accent-color:var(--green);cursor:pointer;
-}
+.check-row input[type=checkbox]{width:16px;height:16px;min-width:16px;margin-top:2px;accent-color:var(--green);cursor:pointer}
 .check-row span{font-size:13px;color:var(--text2);line-height:1.5}
 .check-row a{color:#fff;text-decoration:underline}
 
@@ -112,7 +99,7 @@ img{display:block;object-fit:cover}
   flex:1;overflow:hidden;gap:8px;padding:8px 8px 0;min-height:0;
 }
 
-/* ======================== SIDEBAR ======================== */
+/* ======================== SIDEBAR (Desktop) ======================== */
 .sidebar{
   background:var(--bg);border-radius:10px;
   display:flex;flex-direction:column;overflow:hidden;min-height:0;
@@ -120,8 +107,7 @@ img{display:block;object-fit:cover}
 .sb-nav{padding:16px 8px 4px;flex-shrink:0}
 .sbn-item{
   display:flex;align-items:center;gap:16px;padding:10px 14px;border-radius:6px;
-  font-size:14px;font-weight:800;color:var(--text2);cursor:pointer;transition:.1s;
-  white-space:nowrap;
+  font-size:14px;font-weight:800;color:var(--text2);cursor:pointer;transition:.1s;white-space:nowrap;
 }
 .sbn-item svg{width:24px;height:24px;fill:var(--text2);flex-shrink:0;transition:.1s}
 .sbn-item:hover{color:#fff}
@@ -129,43 +115,26 @@ img{display:block;object-fit:cover}
 .sbn-item.on{color:#fff}
 .sbn-item.on svg{fill:#fff}
 .sb-lib{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0}
-.lib-head{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:6px 12px;cursor:pointer;color:var(--text2);flex-shrink:0;
-}
+.lib-head{display:flex;align-items:center;justify-content:space-between;padding:6px 12px;cursor:pointer;color:var(--text2);flex-shrink:0}
 .lib-head-l{display:flex;align-items:center;gap:10px}
 .lib-head-l svg{width:24px;height:24px;fill:var(--text2);transition:.1s}
 .lib-head-l span{font-size:15px;font-weight:800;transition:.1s}
 .lib-head:hover .lib-head-l svg,.lib-head:hover .lib-head-l span{fill:#fff;color:#fff}
 .lib-head-r{display:flex;gap:2px}
-.lib-icon{
-  width:30px;height:30px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;cursor:pointer;transition:.1s;
-}
+.lib-icon{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.1s}
 .lib-icon:hover{background:var(--bg3)}
 .lib-icon svg{width:16px;height:16px;fill:var(--text2)}
 .lib-icon:hover svg{fill:#fff}
-.lib-filters{
-  display:flex;gap:6px;padding:4px 12px 8px;overflow-x:auto;scrollbar-width:none;flex-shrink:0;
-}
+.lib-filters{display:flex;gap:6px;padding:4px 12px 8px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
 .lib-filters::-webkit-scrollbar{display:none}
-.lib-chip{
-  background:var(--bg3);color:#fff;border-radius:500px;
-  padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;transition:.1s;white-space:nowrap;
-}
+.lib-chip{background:var(--bg3);color:#fff;border-radius:500px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;transition:.1s;white-space:nowrap}
 .lib-chip:hover{background:var(--bg5)}
 .lib-chip.on{background:#fff;color:#000}
 .lib-items{flex:1;overflow-y:auto;padding:0 8px}
-.lib-item{
-  display:flex;align-items:center;gap:12px;padding:8px 8px;border-radius:6px;
-  cursor:pointer;transition:.1s;
-}
+.lib-item{display:flex;align-items:center;gap:12px;padding:8px 8px;border-radius:6px;cursor:pointer;transition:.1s}
 .lib-item:hover{background:var(--bg3)}
 .lib-item.on{background:var(--bg3)}
-.lib-img{
-  width:48px;height:48px;border-radius:4px;flex-shrink:0;
-  background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center;
-}
+.lib-img{width:48px;height:48px;border-radius:4px;flex-shrink:0;background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center}
 .lib-img.circle{border-radius:50%}
 .lib-img img{width:100%;height:100%}
 .lib-info{flex:1;overflow:hidden;min-width:0}
@@ -173,19 +142,13 @@ img{display:block;object-fit:cover}
 .lib-sub{font-size:12px;color:var(--text2);margin-top:2px}
 .lib-pin{width:12px;height:12px;fill:var(--green);flex-shrink:0}
 .sb-bot{padding:12px 14px;border-top:1px solid var(--bg3);flex-shrink:0}
-.sb-bot-btn{
-  display:flex;align-items:center;gap:12px;padding:8px;border-radius:6px;
-  cursor:pointer;transition:.1s;color:var(--text2);font-size:13px;font-weight:700;
-}
+.sb-bot-btn{display:flex;align-items:center;gap:12px;padding:8px;border-radius:6px;cursor:pointer;transition:.1s;color:var(--text2);font-size:13px;font-weight:700}
 .sb-bot-btn:hover{background:var(--bg3);color:#fff}
 .sb-bot-btn svg{width:20px;height:20px;fill:var(--text2)}
 .sb-bot-btn:hover svg{fill:#fff}
 
 /* ======================== CONTENT AREA ======================== */
-.content{
-  display:flex;flex-direction:column;overflow:hidden;
-  border-radius:10px;min-height:0;position:relative;
-}
+.content{display:flex;flex-direction:column;overflow:hidden;border-radius:10px;min-height:0;position:relative}
 
 /* TOPBAR */
 .topbar{
@@ -194,13 +157,9 @@ img{display:block;object-fit:cover}
   border-radius:10px 10px 0 0;
 }
 .tb-nav{display:flex;gap:6px}
-.tb-btn{
-  width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.7);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.1s;
-}
+.tb-btn{width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.1s}
 .tb-btn:hover{background:rgba(0,0,0,.9)}
 .tb-btn svg{width:16px;height:16px;fill:#fff}
-.tb-btn:disabled svg{fill:var(--text3)}
 .search-wrap{flex:1;max-width:500px;position:relative}
 .tb-search{
   width:100%;height:44px;background:#2a2a2a;border:1.5px solid transparent;border-radius:500px;
@@ -210,55 +169,30 @@ img{display:block;object-fit:cover}
 .tb-search::placeholder{color:#6a6a6a}
 .tb-search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);pointer-events:none}
 .tb-search-icon svg{width:18px;height:18px;fill:#fff}
-.tb-search-clear{
-  position:absolute;right:14px;top:50%;transform:translateY(-50%);
-  cursor:pointer;display:none;background:none;border:none;
-}
+.tb-search-clear{position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;display:none;background:none;border:none}
 .tb-search-clear svg{width:16px;height:16px;fill:var(--text2)}
 .tb-right{display:flex;align-items:center;gap:6px;margin-left:auto}
-.tb-premium{
-  height:32px;padding:0 16px;background:#fff;border-radius:500px;
-  font-size:13px;font-weight:800;color:#000;transition:.15s;white-space:nowrap;
-}
+.tb-premium{height:32px;padding:0 16px;background:#fff;border-radius:500px;font-size:13px;font-weight:800;color:#000;transition:.15s;white-space:nowrap}
 .tb-premium:hover{background:#e8e8e8;transform:scale(1.02)}
-.tb-icon-btn{
-  width:40px;height:40px;border-radius:50%;background:var(--bg3);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  transition:.1s;position:relative;
-}
+.tb-icon-btn{width:40px;height:40px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.1s;position:relative}
 .tb-icon-btn:hover{background:var(--bg5)}
 .tb-icon-btn svg{width:18px;height:18px;fill:var(--text2)}
 .tb-icon-btn:hover svg{fill:#fff}
-.notif-dot{
-  position:absolute;top:6px;right:6px;width:8px;height:8px;
-  border-radius:50%;background:var(--green);border:2px solid var(--bg2);
-}
+.notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--green);border:2px solid var(--bg2)}
 .av-wrap{position:relative}
-.av{
-  width:32px;height:32px;border-radius:50%;background:var(--green);
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:800;color:#000;cursor:pointer;transition:.15s;overflow:hidden;
-}
+.av{width:32px;height:32px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#000;cursor:pointer;transition:.15s;overflow:hidden}
 .av img{width:100%;height:100%}
 .av:hover{transform:scale(1.06)}
-.av-dd{
-  position:absolute;top:calc(100% + 8px);right:0;
-  background:#282828;border-radius:6px;min-width:200px;padding:4px;
-  box-shadow:0 16px 32px rgba(0,0,0,.5);display:none;z-index:200;
-}
+.av-dd{position:absolute;top:calc(100% + 8px);right:0;background:#282828;border-radius:6px;min-width:200px;padding:4px;box-shadow:0 16px 32px rgba(0,0,0,.5);display:none;z-index:200}
 .av-dd.on{display:block;animation:slideUp .15s ease}
-.av-dd-item{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 14px;border-radius:3px;font-size:14px;font-weight:600;
-  cursor:pointer;transition:.1s;color:var(--text2);
-}
+.av-dd-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:3px;font-size:14px;font-weight:600;cursor:pointer;transition:.1s;color:var(--text2)}
 .av-dd-item:hover{background:rgba(255,255,255,.08);color:#fff}
 .av-dd-item.red{color:#E91429}
 .av-dd-item.red:hover{background:rgba(233,20,41,.08)}
 .av-dd-sep{height:1px;background:#3e3e3e;margin:4px 0}
 .av-dd-item svg{width:14px;height:14px;fill:currentColor;opacity:.6}
 
-/* SCROLL AREA */
+/* ======================== SCROLL AREA ======================== */
 .scroll{flex:1;overflow-y:auto;position:relative;background:var(--bg2)}
 .scroll.home-bg{background:linear-gradient(180deg,#1d472a 0%,var(--bg2) 380px)}
 .scroll.search-bg{background:linear-gradient(180deg,#1a1a2e 0%,var(--bg2) 280px)}
@@ -273,22 +207,14 @@ img{display:block;object-fit:cover}
 /* ======================== HOME ======================== */
 .greeting{padding:24px 24px 12px;font-size:28px;font-weight:900}
 .recents{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px;padding:0 24px 0}
-.recent-card{
-  display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.08);
-  border-radius:6px;overflow:hidden;cursor:pointer;transition:background .15s;height:56px;
-  position:relative;
-}
+.recent-card{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden;cursor:pointer;transition:background .15s;height:56px;position:relative}
 .recent-card:hover{background:rgba(255,255,255,.2)}
 .rc-img{width:56px;height:56px;flex-shrink:0;overflow:hidden;background:var(--bg3)}
 .rc-img img{width:100%;height:100%}
 .rc-img.grad{background:linear-gradient(135deg,#450af5,#c4efd9);display:flex;align-items:center;justify-content:center}
 .rc-img.grad svg{width:28px;height:28px;fill:rgba(255,255,255,.8)}
 .rc-name{font-size:13px;font-weight:800;flex:1;padding-right:8px;line-height:1.3}
-.rc-play{
-  width:40px;height:40px;border-radius:50%;background:var(--green);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:8px;
-  opacity:0;transform:translateY(4px);transition:.2s;box-shadow:0 8px 16px rgba(0,0,0,.4);
-}
+.rc-play{width:40px;height:40px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:8px;opacity:0;transform:translateY(4px);transition:.2s;box-shadow:0 8px 16px rgba(0,0,0,.4)}
 .recent-card:hover .rc-play{opacity:1;transform:translateY(0)}
 .rc-play svg{width:16px;height:16px;fill:#000;margin-left:2px}
 .section{padding:20px 24px 0}
@@ -297,72 +223,36 @@ img{display:block;object-fit:cover}
 .sec-all{font-size:12px;font-weight:800;color:var(--text2);cursor:pointer;letter-spacing:1px;text-transform:uppercase}
 .sec-all:hover{color:#fff;text-decoration:underline}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:20px}
-.sp-card{
-  background:var(--bg2);border-radius:8px;padding:16px;cursor:pointer;
-  transition:background .2s;position:relative;
-}
+.sp-card{background:var(--bg2);border-radius:8px;padding:16px;cursor:pointer;transition:background .2s;position:relative}
 .sp-card:hover{background:var(--bg3)}
-.sp-card-img{
-  width:100%;aspect-ratio:1/1;border-radius:6px;margin-bottom:14px;
-  overflow:hidden;background:var(--bg3);position:relative;
-  box-shadow:0 8px 24px rgba(0,0,0,.5);
-}
+.sp-card-img{width:100%;aspect-ratio:1/1;border-radius:6px;margin-bottom:14px;overflow:hidden;background:var(--bg3);position:relative;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 .sp-card-img img{width:100%;height:100%;object-fit:cover}
 .sp-card-img.circle{border-radius:50%}
-.sp-card-img.circle img{border-radius:50%}
-.sp-card-name{font-size:14px;font-weight:800;margin-bottom:4px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sp-card-sub{font-size:13px;color:var(--text2);line-height:1.5;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card-play{
-  position:absolute;bottom:16px;right:16px;width:48px;height:48px;
-  border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;
-  opacity:0;transform:translateY(8px);transition:.2s;box-shadow:0 8px 16px rgba(0,0,0,.5);
-}
+.sp-card-name{font-size:14px;font-weight:800;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp-card-sub{font-size:13px;color:var(--text2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-play{position:absolute;bottom:16px;right:16px;width:48px;height:48px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:.2s;box-shadow:0 8px 16px rgba(0,0,0,.5)}
 .sp-card:hover .card-play{opacity:1;transform:translateY(0)}
 .card-play svg{width:20px;height:20px;fill:#000;margin-left:3px}
 
 /* ======================== SEARCH ======================== */
-.browse-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;
-}
-.browse-card{
-  height:200px;border-radius:10px;position:relative;overflow:hidden;cursor:pointer;transition:transform .15s;
-}
+.browse-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.browse-card{height:200px;border-radius:10px;position:relative;overflow:hidden;cursor:pointer;transition:transform .15s}
 .browse-card:hover{transform:scale(1.02)}
-.browse-title{
-  position:absolute;top:16px;left:16px;right:60px;
-  font-size:18px;font-weight:900;color:#fff;z-index:2;word-break:break-word;line-height:1.2;
-}
-.browse-img{
-  position:absolute;right:-4px;bottom:-8px;width:80px;height:80px;
-  transform:rotate(25deg);border-radius:8px;overflow:hidden;
-  box-shadow:0 8px 24px rgba(0,0,0,.5);
-}
+.browse-title{position:absolute;top:16px;left:16px;right:60px;font-size:18px;font-weight:900;color:#fff;z-index:2;word-break:break-word;line-height:1.2}
+.browse-img{position:absolute;right:-4px;bottom:-8px;width:80px;height:80px;transform:rotate(25deg);border-radius:8px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 .browse-img img{width:100%;height:100%;object-fit:cover}
 .top-results{display:grid;grid-template-columns:2fr 3fr;gap:24px;padding:16px 24px 0}
-.top-card{
-  background:var(--bg3);border-radius:8px;padding:24px;cursor:pointer;transition:.15s;
-}
+.top-card{background:var(--bg3);border-radius:8px;padding:24px;cursor:pointer;transition:.15s}
 .top-card:hover{background:#333}
-.top-card-img{width:92px;height:92px;border-radius:6px;overflow:hidden;margin-bottom:20px;
-  box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.top-card-img{width:92px;height:92px;border-radius:6px;overflow:hidden;margin-bottom:20px;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 .top-card-img img{width:100%;height:100%;object-fit:cover}
-.top-card-img.circle{border-radius:50%}
 .top-card-name{font-size:28px;font-weight:900;margin-bottom:8px}
-.top-card-tag{
-  background:#000;color:#fff;font-size:12px;font-weight:800;
-  padding:4px 14px;border-radius:500px;display:inline-block;
-}
+.top-card-tag{background:#000;color:#fff;font-size:12px;font-weight:800;padding:4px 14px;border-radius:500px;display:inline-block}
 .tracks-col{display:flex;flex-direction:column}
 .tracks-col-title{font-size:12px;font-weight:800;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
-.s-track{
-  display:grid;grid-template-columns:20px 40px 1fr 70px;
-  align-items:center;gap:12px;padding:10px 10px;border-radius:6px;cursor:pointer;transition:.1s;
-}
+.s-track{display:grid;grid-template-columns:20px 40px 1fr 70px;align-items:center;gap:12px;padding:10px 10px;border-radius:6px;cursor:pointer;transition:.1s}
 .s-track:hover{background:rgba(255,255,255,.1)}
 .s-track-n{font-size:15px;color:var(--text2);font-weight:600;text-align:center}
-.s-track.playing .s-track-n{display:none}
 .eq-anim{display:none;align-items:flex-end;justify-content:center;gap:2px;height:14px;width:14px}
 .eq-anim span{background:var(--green);border-radius:1px;width:2px;animation:eq 1s ease-in-out infinite alternate}
 .eq-anim span:nth-child(2){animation-delay:.2s;width:3px}
@@ -377,12 +267,7 @@ img{display:block;object-fit:cover}
 
 /* ======================== PLAYLIST ======================== */
 .pl-header{display:flex;align-items:flex-end;gap:24px;padding:80px 24px 24px}
-.pl-cover{
-  width:232px;height:232px;flex-shrink:0;border-radius:4px;overflow:hidden;
-  box-shadow:0 8px 48px rgba(0,0,0,.6);
-  background:linear-gradient(135deg,#4a0099,#d4145a);
-  display:flex;align-items:center;justify-content:center;
-}
+.pl-cover{width:232px;height:232px;flex-shrink:0;border-radius:4px;overflow:hidden;box-shadow:0 8px 48px rgba(0,0,0,.6);background:linear-gradient(135deg,#4a0099,#d4145a);display:flex;align-items:center;justify-content:center}
 .pl-cover img{width:100%;height:100%;object-fit:cover}
 .pl-cover svg{width:96px;height:96px;fill:rgba(255,255,255,.8)}
 .pl-type{font-size:12px;font-weight:800;margin-bottom:8px}
@@ -391,46 +276,28 @@ img{display:block;object-fit:cover}
 .pl-meta{font-size:14px;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
 .pl-meta-dot{color:var(--text2);margin:0 2px}
 .pl-actions{display:flex;align-items:center;gap:20px;padding:24px}
-.play-lg{
-  width:56px;height:56px;border-radius:50%;background:var(--green);
-  display:flex;align-items:center;justify-content:center;transition:.15s;cursor:pointer;
-}
+.play-lg{width:56px;height:56px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;transition:.15s;cursor:pointer}
 .play-lg:hover{background:var(--green-h);transform:scale(1.06)}
 .play-lg svg{width:24px;height:24px;fill:#000;margin-left:3px}
-.ac-btn{
-  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;border-radius:50%;transition:.1s;
-}
+.ac-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%;transition:.1s}
 .ac-btn svg{width:32px;height:32px;fill:var(--text2)}
 .ac-btn:hover svg{fill:#fff}
-.ac-btn.sm svg{width:20px;height:20px}
-.tl-head{
-  display:grid;gap:14px;padding:0 24px 10px;margin:0 24px;
-  border-bottom:1px solid rgba(255,255,255,.1);
-  color:var(--text2);font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
-  align-items:center;
-}
+.tl-head{display:grid;gap:14px;padding:0 24px 10px;margin:0 24px;border-bottom:1px solid rgba(255,255,255,.1);color:var(--text2);font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;align-items:center}
 .tl-head.std{grid-template-columns:24px 4fr 3fr 2fr 80px}
 .tl-head.pl{grid-template-columns:24px 4fr 3fr 80px}
 .tl{padding:4px 8px 24px}
-.tr{
-  display:grid;align-items:center;gap:14px;padding:8px 16px;
-  border-radius:6px;cursor:pointer;transition:.1s;
-}
+.tr{display:grid;align-items:center;gap:14px;padding:8px 16px;border-radius:6px;cursor:pointer;transition:.1s}
 .tr.std{grid-template-columns:24px 4fr 3fr 2fr 80px}
 .tr.pl{grid-template-columns:24px 4fr 3fr 80px}
 .tr:hover{background:rgba(255,255,255,.08)}
 .tr.on{background:rgba(255,255,255,.05)}
 .tr-num{font-size:15px;color:var(--text2);font-weight:600;text-align:center}
-.tr.on .tr-num{display:none}
-.tr.on .eq-anim{display:flex}
 .tr-img-wrap{display:flex;align-items:center;gap:14px;overflow:hidden}
 .tr-img{width:40px;height:40px;border-radius:4px;overflow:hidden;flex-shrink:0;background:var(--bg3)}
 .tr-img img{width:100%;height:100%;object-fit:cover}
 .tr-name{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tr.on .tr-name{color:var(--green)}
 .tr-art{font-size:13px;color:var(--text2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tr-art span:hover{color:#fff;text-decoration:underline}
 .tr-album{font-size:14px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tr-album:hover{color:#fff;text-decoration:underline}
 .tr-date{font-size:13px;color:var(--text2)}
@@ -442,84 +309,42 @@ img{display:block;object-fit:cover}
 .tr-dur{font-size:14px;color:var(--text2)}
 
 /* ======================== ARTIST ======================== */
-.artist-header{
-  min-height:340px;display:flex;align-items:flex-end;
-  padding:80px 24px 24px;position:relative;overflow:hidden;
-}
-.artist-header-bg{
-  position:absolute;inset:0;background-size:cover;background-position:center top;
-  filter:brightness(.5);
-}
-.artist-verified{
-  display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;
-  position:relative;z-index:2;margin-bottom:8px;
-}
+.artist-header{min-height:340px;display:flex;align-items:flex-end;padding:80px 24px 24px;position:relative;overflow:hidden}
+.artist-header-bg{position:absolute;inset:0;background-size:cover;background-position:center top;filter:brightness(.5)}
+.artist-verified{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;position:relative;z-index:2;margin-bottom:8px}
 .artist-verified svg{width:20px;height:20px;fill:#3e91f0}
 .artist-name{font-size:64px;font-weight:900;position:relative;z-index:2;line-height:1;letter-spacing:-2px}
 .artist-followers{font-size:14px;color:var(--text2);position:relative;z-index:2;margin-top:10px}
 
 /* ======================== PROFILE ======================== */
-.profile-top{
-  display:flex;align-items:flex-end;gap:24px;padding:80px 24px 24px;
-  background:linear-gradient(to bottom,#333 0%,var(--bg2) 100%);
-}
-.profile-av{
-  width:200px;height:200px;border-radius:50%;flex-shrink:0;
-  background:var(--green);display:flex;align-items:center;justify-content:center;
-  font-size:80px;font-weight:900;color:#000;overflow:hidden;
-  box-shadow:0 4px 48px rgba(0,0,0,.6);cursor:pointer;
-}
+.profile-top{display:flex;align-items:flex-end;gap:24px;padding:80px 24px 24px;background:linear-gradient(to bottom,#333 0%,var(--bg2) 100%)}
+.profile-av{width:200px;height:200px;border-radius:50%;flex-shrink:0;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:80px;font-weight:900;color:#000;overflow:hidden;box-shadow:0 4px 48px rgba(0,0,0,.6);cursor:pointer}
 .profile-av img{width:100%;height:100%}
 .profile-type{font-size:13px;font-weight:800;margin-bottom:6px}
 .profile-name{font-size:52px;font-weight:900;letter-spacing:-1px;margin-bottom:10px}
 .profile-followers{font-size:14px;color:var(--text2)}
 .profile-followers span{color:#fff;font-weight:700}
 .profile-actions{display:flex;align-items:center;gap:20px;padding:24px}
-.edit-btn{
-  height:32px;padding:0 16px;border-radius:500px;border:1px solid var(--text2);
-  font-size:14px;font-weight:700;color:#fff;transition:.15s;cursor:pointer;background:none;
-}
+.edit-btn{height:32px;padding:0 16px;border-radius:500px;border:1px solid var(--text2);font-size:14px;font-weight:700;color:#fff;transition:.15s;cursor:pointer;background:none}
 .edit-btn:hover{border-color:#fff}
 
 /* ======================== SETTINGS ======================== */
 .settings-wrap{padding:24px;max-width:800px}
 .settings-wrap h1{font-size:28px;font-weight:900;margin-bottom:24px}
 .settings-section{margin-bottom:32px}
-.settings-section h2{font-size:16px;font-weight:800;margin-bottom:16px;color:var(--text2);
-  text-transform:uppercase;letter-spacing:1px}
-.setting-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07);gap:20px;
-}
+.settings-section h2{font-size:16px;font-weight:800;margin-bottom:16px;color:var(--text2);text-transform:uppercase;letter-spacing:1px}
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07);gap:20px}
 .setting-row:last-child{border-bottom:none}
 .setting-info{flex:1}
 .setting-label{font-size:15px;font-weight:600;margin-bottom:4px}
 .setting-desc{font-size:13px;color:var(--text2)}
-.toggle{
-  width:50px;height:28px;border-radius:14px;background:var(--bg5);position:relative;
-  cursor:pointer;transition:.2s;flex-shrink:0;
-}
+.toggle{width:50px;height:28px;border-radius:14px;background:var(--bg5);position:relative;cursor:pointer;transition:.2s;flex-shrink:0}
 .toggle.on{background:var(--green)}
-.toggle::after{
-  content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;
-  border-radius:50%;background:#fff;transition:.2s;
-}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .toggle.on::after{left:25px}
-.setting-select{
-  background:var(--bg3);border:1px solid var(--bg5);border-radius:6px;
-  padding:8px 14px;color:#fff;font-size:14px;font-family:inherit;cursor:pointer;
-}
+.setting-select{background:var(--bg3);border:1px solid var(--bg5);border-radius:6px;padding:8px 14px;color:#fff;font-size:14px;font-family:inherit;cursor:pointer}
 .setting-select:focus{border-color:#fff}
-.setting-input{
-  width:100%;background:var(--bg3);border:1px solid var(--bg5);border-radius:6px;
-  padding:10px 14px;color:#fff;font-size:14px;font-family:inherit;margin-top:8px;
-  transition:.15s;
-}
-.setting-input:focus{border-color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.1)}
-.setting-btn{
-  height:40px;padding:0 20px;border-radius:500px;border:1px solid var(--text2);
-  font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:.15s;background:none;
-}
+.setting-btn{height:40px;padding:0 20px;border-radius:500px;border:1px solid var(--text2);font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:.15s;background:none}
 .setting-btn:hover{border-color:#fff}
 .setting-btn.danger{color:#E91429;border-color:#E91429}
 .setting-btn.danger:hover{background:rgba(233,20,41,.1)}
@@ -527,60 +352,31 @@ img{display:block;object-fit:cover}
 .setting-btn.primary:hover{background:var(--green-h)}
 .settings-form{display:flex;flex-direction:column;gap:16px;max-width:400px}
 .sf-label{font-size:13px;font-weight:700;margin-bottom:6px;display:block}
-.sf-input{
-  width:100%;height:48px;background:var(--bg3);border:1px solid var(--bg5);border-radius:4px;
-  padding:0 14px;color:#fff;font-size:15px;font-family:inherit;transition:.15s;
-}
+.sf-input{width:100%;height:48px;background:var(--bg3);border:1px solid var(--bg5);border-radius:4px;padding:0 14px;color:#fff;font-size:15px;font-family:inherit;transition:.15s}
 .sf-input:focus{border-color:#fff;background:var(--bg4)}
 .sf-input::placeholder{color:var(--text3)}
-.sf-input:disabled{opacity:.5;cursor:not-allowed}
 .sf-avatar-wrap{display:flex;align-items:center;gap:20px;margin-bottom:20px}
-.sf-avatar{
-  width:120px;height:120px;border-radius:50%;background:var(--green);
-  display:flex;align-items:center;justify-content:center;font-size:48px;
-  font-weight:900;color:#000;overflow:hidden;cursor:pointer;position:relative;
-}
-.sf-avatar:hover::after{
-  content:'Pilih foto';position:absolute;inset:0;border-radius:50%;
-  background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:700;color:#fff;
-}
+.sf-avatar{width:120px;height:120px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:900;color:#000;overflow:hidden;cursor:pointer;position:relative}
 .sf-avatar img{width:100%;height:100%}
 .sf-avatar-btns{display:flex;flex-direction:column;gap:8px}
 
 /* ======================== PREMIUM ======================== */
-.premium-hero{
-  background:linear-gradient(180deg,#000 0%,#121212 100%);
-  padding:60px 40px;text-align:center;
-}
+.premium-hero{background:linear-gradient(180deg,#000 0%,#121212 100%);padding:60px 40px;text-align:center}
 .premium-hero h1{font-size:48px;font-weight:900;margin-bottom:16px}
 .premium-hero p{font-size:18px;color:var(--text2);margin-bottom:32px}
-.premium-hero-btn{
-  height:50px;padding:0 32px;border-radius:500px;background:var(--green);
-  font-size:16px;font-weight:800;color:#000;cursor:pointer;transition:.15s;
-}
+.premium-hero-btn{height:50px;padding:0 32px;border-radius:500px;background:var(--green);font-size:16px;font-weight:800;color:#000;cursor:pointer;transition:.15s}
 .premium-hero-btn:hover{background:var(--green-h);transform:scale(1.02)}
 .plans-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;padding:0 24px 40px}
-.plan-card{
-  background:var(--bg3);border-radius:12px;padding:28px;border:1px solid transparent;
-  position:relative;transition:.15s;
-}
+.plan-card{background:var(--bg3);border-radius:12px;padding:28px;border:1px solid transparent;position:relative;transition:.15s}
 .plan-card.featured{border-color:var(--green)}
-.plan-badge{
-  position:absolute;top:-12px;left:24px;background:var(--green);color:#000;
-  font-size:12px;font-weight:800;padding:4px 14px;border-radius:500px;
-}
+.plan-badge{position:absolute;top:-12px;left:24px;background:var(--green);color:#000;font-size:12px;font-weight:800;padding:4px 14px;border-radius:500px}
 .plan-name{font-size:24px;font-weight:900;margin-bottom:4px}
 .plan-price{font-size:40px;font-weight:900;margin:16px 0;color:#fff}
 .plan-price span{font-size:16px;color:var(--text2)}
 .plan-features{list-style:none;margin-bottom:24px}
-.plan-features li{font-size:14px;color:var(--text2);padding:6px 0;
-  display:flex;align-items:center;gap:10px}
+.plan-features li{font-size:14px;color:var(--text2);padding:6px 0;display:flex;align-items:center;gap:10px}
 .plan-features li::before{content:'✓';color:var(--green);font-weight:900}
-.plan-btn{
-  width:100%;height:44px;border-radius:500px;background:var(--green);
-  font-size:15px;font-weight:800;color:#000;cursor:pointer;transition:.15s;
-}
+.plan-btn{width:100%;height:44px;border-radius:500px;background:var(--green);font-size:15px;font-weight:800;color:#000;cursor:pointer;transition:.15s}
 .plan-btn:hover{background:var(--green-h)}
 .plan-btn.outline{background:transparent;border:1.5px solid var(--text2);color:#fff}
 .plan-btn.outline:hover{border-color:#fff;background:rgba(255,255,255,.05)}
@@ -589,17 +385,11 @@ img{display:block;object-fit:cover}
 .queue-page{padding:20px}
 .queue-now{margin-bottom:24px}
 .queue-now-title{font-size:16px;font-weight:900;margin-bottom:16px}
-.queue-now-card{
-  display:flex;align-items:center;gap:14px;background:var(--bg3);
-  border-radius:8px;padding:12px;
-}
+.queue-now-card{display:flex;align-items:center;gap:14px;background:var(--bg3);border-radius:8px;padding:12px}
 .queue-now-img{width:56px;height:56px;border-radius:6px;overflow:hidden;background:var(--bg5)}
 .queue-now-img img{width:100%;height:100%;object-fit:cover}
-.queue-next-title{font-size:14px;font-weight:800;color:var(--text2);margin-bottom:12px;
-  text-transform:uppercase;letter-spacing:1px}
-.q-item{
-  display:flex;align-items:center;gap:12px;padding:8px;border-radius:6px;cursor:pointer;transition:.1s;
-}
+.queue-next-title{font-size:14px;font-weight:800;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.q-item{display:flex;align-items:center;gap:12px;padding:8px;border-radius:6px;cursor:pointer;transition:.1s}
 .q-item:hover{background:rgba(255,255,255,.08)}
 .q-img{width:40px;height:40px;border-radius:4px;overflow:hidden;background:var(--bg5)}
 .q-img img{width:100%;height:100%;object-fit:cover}
@@ -610,59 +400,31 @@ img{display:block;object-fit:cover}
 
 /* ======================== ALBUM ======================== */
 .album-header{display:flex;align-items:flex-end;gap:24px;padding:80px 24px 24px}
-.album-cover{
-  width:232px;height:232px;flex-shrink:0;border-radius:4px;overflow:hidden;
-  box-shadow:0 8px 48px rgba(0,0,0,.6);background:var(--bg3);
-}
+.album-cover{width:232px;height:232px;flex-shrink:0;border-radius:4px;overflow:hidden;box-shadow:0 8px 48px rgba(0,0,0,.6);background:var(--bg3)}
 .album-cover img{width:100%;height:100%;object-fit:cover}
 
-/* ======================== EDIT PROFILE MODAL ======================== */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;
-  display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);
-}
+/* ======================== MODAL ======================== */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 .modal-overlay.on{display:flex;animation:fadeIn .2s ease}
-.modal{
-  background:#282828;border-radius:10px;width:520px;max-width:95vw;
-  padding:24px;position:relative;max-height:90vh;overflow-y:auto;
-}
+.modal{background:#282828;border-radius:10px;width:520px;max-width:95vw;padding:24px;position:relative;max-height:90vh;overflow-y:auto}
 .modal h2{font-size:24px;font-weight:900;margin-bottom:20px}
-.modal-close{
-  position:absolute;top:16px;right:16px;
-  width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.1s;
-}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.1s}
 .modal-close:hover{background:rgba(255,255,255,.2)}
 .modal-close svg{width:16px;height:16px;fill:#fff}
 
 /* NOTIFICATION PANEL */
-.notif-panel{
-  position:absolute;top:calc(64px + 4px);right:16px;
-  background:#282828;border-radius:10px;width:360px;max-width:95vw;
-  padding:8px;box-shadow:0 16px 48px rgba(0,0,0,.5);z-index:100;
-  display:none;max-height:400px;overflow-y:auto;
-}
+.notif-panel{position:absolute;top:calc(64px + 4px);right:16px;background:#282828;border-radius:10px;width:360px;max-width:95vw;padding:8px;box-shadow:0 16px 48px rgba(0,0,0,.5);z-index:100;display:none;max-height:400px;overflow-y:auto}
 .notif-panel.on{display:block;animation:slideUp .15s ease}
 .notif-head{font-size:16px;font-weight:900;padding:10px 12px 8px}
-.notif-item{
-  display:flex;align-items:flex-start;gap:12px;padding:12px;
-  border-radius:6px;cursor:pointer;transition:.1s;
-}
+.notif-item{display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:6px;cursor:pointer;transition:.1s}
 .notif-item:hover{background:rgba(255,255,255,.08)}
-.notif-icon{
-  width:40px;height:40px;border-radius:50%;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:18px;
-}
+.notif-icon{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px}
 .notif-text{font-size:14px;line-height:1.4}
 .notif-time{font-size:12px;color:var(--text2);margin-top:2px}
 .notif-unread{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px}
 
 /* ======================== PLAYER BAR ======================== */
-#player{
-  height:90px;flex-shrink:0;background:#181818;border-top:1px solid #282828;
-  display:flex;align-items:center;padding:0 16px;gap:0;
-}
-/* Player Left */
+#player{height:90px;flex-shrink:0;background:#181818;border-top:1px solid #282828;display:flex;align-items:center;padding:0 16px;gap:0}
 .pl-left{width:30%;display:flex;align-items:center;gap:14px;min-width:0}
 .pl-thumb{width:56px;height:56px;border-radius:4px;overflow:hidden;background:var(--bg3);flex-shrink:0;cursor:pointer}
 .pl-thumb img{width:100%;height:100%;object-fit:cover}
@@ -672,54 +434,31 @@ img{display:block;object-fit:cover}
 .pl-artist{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
 .pl-artist span:hover{color:#fff;text-decoration:underline;cursor:pointer}
 .pl-btns{display:flex;align-items:center;gap:4px}
-.pl-btn{
-  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;border-radius:50%;transition:.1s;
-}
+.pl-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%;transition:.1s}
 .pl-btn svg{width:16px;height:16px;fill:var(--text2);transition:.1s}
 .pl-btn:hover svg{fill:#fff}
 .pl-btn.liked svg{fill:var(--green)}
-/* Player Center */
 .pl-center{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px}
 .pl-ctrl{display:flex;align-items:center;gap:8px}
-.ctrl{
-  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;border-radius:50%;transition:.1s;position:relative;
-}
+.ctrl{width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%;transition:.1s;position:relative}
 .ctrl svg{width:16px;height:16px;fill:var(--text2);transition:.1s}
 .ctrl:hover svg{fill:#fff}
 .ctrl.sm svg{width:14px;height:14px}
 .ctrl.on svg{fill:var(--green)}
-.ctrl.on::after{
-  content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);
-  width:4px;height:4px;border-radius:50%;background:var(--green);
-}
-.pp-btn{
-  width:32px;height:32px;border-radius:50%;background:#fff;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;
-}
+.ctrl.on::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--green)}
+.pp-btn{width:32px;height:32px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
 .pp-btn:hover{transform:scale(1.08)}
 .pp-btn svg{width:14px;height:14px;fill:#000}
 .prog-row{display:flex;align-items:center;gap:8px;width:100%}
 .prog-time{font-size:11px;color:var(--text2);min-width:40px;text-align:center;font-weight:600}
-.prog-wrap{
-  flex:1;height:4px;background:var(--bg5);border-radius:2px;cursor:pointer;position:relative;
-  transition:height .1s;
-}
+.prog-wrap{flex:1;height:4px;background:var(--bg5);border-radius:2px;cursor:pointer;position:relative;transition:height .1s}
 .prog-wrap:hover{height:6px}
 .prog-bar{height:100%;background:#fff;border-radius:2px;position:relative;transition:width .4s linear}
 .prog-wrap:hover .prog-bar{background:var(--green)}
-.prog-dot{
-  width:12px;height:12px;border-radius:50%;background:#fff;
-  position:absolute;right:-6px;top:50%;transform:translateY(-50%);display:none;
-}
+.prog-dot{width:12px;height:12px;border-radius:50%;background:#fff;position:absolute;right:-6px;top:50%;transform:translateY(-50%);display:none}
 .prog-wrap:hover .prog-dot{display:block}
-/* Player Right */
 .pl-right{width:30%;display:flex;align-items:center;justify-content:flex-end;gap:4px}
-.r-btn{
-  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;border-radius:50%;transition:.1s;
-}
+.r-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%;transition:.1s}
 .r-btn svg{width:16px;height:16px;fill:var(--text2)}
 .r-btn:hover svg{fill:#fff}
 .r-btn.on svg{fill:var(--green)}
@@ -729,27 +468,204 @@ img{display:block;object-fit:cover}
 .vol-bar{height:100%;background:#fff;border-radius:2px}
 .vol-bar-wrap:hover .vol-bar{background:var(--green)}
 
+/* ======================== MOBILE BOTTOM NAV ======================== */
+.mobile-nav{
+  display:none;height:var(--mobile-nav);flex-shrink:0;
+  background:#181818;border-top:1px solid #282828;
+  flex-direction:row;align-items:center;justify-content:space-around;
+  padding:0 8px;z-index:100;
+}
+.mob-nav-item{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:8px 16px;cursor:pointer;color:var(--text2);flex:1;
+  transition:.1s;border-radius:8px;
+}
+.mob-nav-item.on{color:#fff}
+.mob-nav-item svg{width:24px;height:24px;fill:var(--text2)}
+.mob-nav-item.on svg{fill:#fff}
+.mob-nav-item span{font-size:10px;font-weight:700}
+
+/* ======================== MOBILE PLAYER BAR ======================== */
+.mobile-player{
+  display:none;
+  background:#1f1f1f;border-radius:10px;margin:0 8px 4px;
+  padding:10px 14px;flex-shrink:0;
+  flex-direction:row;align-items:center;gap:12px;
+  cursor:pointer;border:1px solid rgba(255,255,255,.05);
+}
+.mob-pl-info{flex:1;overflow:hidden}
+.mob-pl-track{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mob-pl-artist{font-size:12px;color:var(--text2);margin-top:2px}
+.mob-pl-img{width:44px;height:44px;border-radius:6px;overflow:hidden;background:var(--bg3);flex-shrink:0}
+.mob-pl-img img{width:100%;height:100%;object-fit:cover}
+.mob-pl-btns{display:flex;align-items:center;gap:4px}
+.mob-pl-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%}
+.mob-pl-btn svg{width:20px;height:20px;fill:var(--text2)}
+.mob-pl-btn.pp svg{fill:#fff}
+
+/* ======================== MINI PLAYER EXPANDED (Mobile) ======================== */
+.player-expanded{
+  position:fixed;inset:0;background:#181818;z-index:800;
+  display:none;flex-direction:column;padding:0;
+  animation:slideUpFull .3s ease;
+}
+.player-expanded.on{display:flex}
+.pex-header{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 10px}
+.pex-title{font-size:13px;font-weight:700;color:var(--text2);text-align:center;flex:1}
+.pex-close{width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.pex-close svg{width:20px;height:20px;fill:#fff}
+.pex-img{width:calc(100% - 64px);max-width:320px;aspect-ratio:1;border-radius:12px;overflow:hidden;margin:20px auto;box-shadow:0 16px 48px rgba(0,0,0,.6)}
+.pex-img img{width:100%;height:100%;object-fit:cover}
+.pex-info{padding:0 32px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between}
+.pex-track{font-size:22px;font-weight:900;flex:1}
+.pex-artist{font-size:15px;color:var(--text2);margin-top:4px}
+.pex-heart{width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.pex-heart svg{width:24px;height:24px;fill:var(--text2)}
+.pex-heart.on svg{fill:var(--green)}
+.pex-prog{padding:0 32px;margin-bottom:16px}
+.pex-ctrl{display:flex;align-items:center;justify-content:space-between;padding:0 24px;margin-bottom:16px}
+.pex-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%}
+.pex-btn svg{width:24px;height:24px;fill:var(--text2)}
+.pex-btn.on svg{fill:var(--green)}
+.pex-pp{width:64px;height:64px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.pex-pp svg{width:28px;height:28px;fill:#000;margin-left:3px}
+.pex-pp.paused svg{margin-left:3px}
+.pex-vol{display:flex;align-items:center;gap:12px;padding:0 32px;margin-bottom:20px}
+.pex-vol svg{width:18px;height:18px;fill:var(--text2)}
+
 /* ======================== MISC ======================== */
-#toast{
-  position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(8px);
-  background:#333;color:#fff;padding:12px 20px;border-radius:6px;
-  font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:9999;
-}
+#toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(8px);background:#333;color:#fff;padding:12px 20px;border-radius:6px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:9999;white-space:nowrap;max-width:90vw}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-.ctx-menu{
-  position:fixed;background:#282828;border-radius:6px;min-width:180px;padding:4px;
-  box-shadow:0 16px 32px rgba(0,0,0,.5);z-index:500;display:none;
-}
+.ctx-menu{position:fixed;background:#282828;border-radius:6px;min-width:180px;padding:4px;box-shadow:0 16px 32px rgba(0,0,0,.5);z-index:500;display:none}
 .ctx-menu.on{display:block;animation:fadeIn .1s ease}
-.ctx-item{
-  padding:11px 14px;font-size:14px;font-weight:600;cursor:pointer;border-radius:3px;transition:.1s;
-  display:flex;align-items:center;gap:10px;color:var(--text2);
-}
+.ctx-item{padding:11px 14px;font-size:14px;font-weight:600;cursor:pointer;border-radius:3px;transition:.1s;display:flex;align-items:center;gap:10px;color:var(--text2)}
 .ctx-item:hover{background:rgba(255,255,255,.1);color:#fff}
 .ctx-item svg{width:14px;height:14px;fill:currentColor}
 .ctx-sep{height:1px;background:#3e3e3e;margin:4px 0}
-.pb-10{padding-bottom:10px}
-.section-top{padding:10px 24px 0}
+
+/* ======================== RESPONSIVE MOBILE ======================== */
+@media (max-width: 768px) {
+  :root{--player:0px}
+
+  /* Hide desktop elements */
+  .sidebar{display:none}
+  #player{display:none}
+  .tb-premium{display:none}
+  .tb-nav{display:none}
+  .tb-icon-btn{display:none}
+  .app-body{grid-template-columns:1fr;padding:0;gap:0}
+
+  /* Show mobile elements */
+  .mobile-nav{display:flex}
+  .mobile-player{display:flex}
+  .content{border-radius:0}
+
+  .topbar{
+    height:56px;border-radius:0;padding:0 12px;
+    background:transparent;position:sticky;top:0;
+    background:linear-gradient(180deg,rgba(18,18,18,.95) 0%,transparent 100%);
+  }
+  .topbar.search-active{background:var(--bg2)}
+  .search-wrap{max-width:none;flex:1}
+  .tb-search{height:40px;font-size:13px}
+  .av-wrap{order:10}
+  .av{width:28px;height:28px;font-size:12px}
+  .av-dd{right:-8px;min-width:180px}
+  .notif-panel{right:4px;width:calc(100vw - 8px)}
+
+  /* Greeting & Recents */
+  .greeting{font-size:22px;padding:16px 16px 10px}
+  .recents{grid-template-columns:repeat(2,1fr);padding:0 16px;gap:8px}
+  .recent-card{height:52px}
+  .rc-img{width:52px;height:52px}
+  .rc-name{font-size:12px}
+  .rc-play{display:none}
+
+  /* Section */
+  .section{padding:16px 16px 0}
+  .sec-title{font-size:18px}
+  .cards{grid-template-columns:repeat(2,1fr);gap:12px}
+  .sp-card{padding:12px}
+  .sp-card-name{font-size:13px}
+  .sp-card-sub{font-size:12px}
+  .card-play{width:40px;height:40px;bottom:12px;right:12px;opacity:1;transform:translateY(0)}
+  .card-play svg{width:16px;height:16px}
+
+  /* Browse */
+  .browse-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .browse-card{height:120px}
+  .browse-title{font-size:14px;top:12px;left:12px}
+  .browse-img{width:60px;height:60px}
+
+  /* Playlist header */
+  .pl-header{flex-direction:column;align-items:center;padding:60px 16px 16px;gap:16px;text-align:center}
+  .pl-cover{width:180px;height:180px}
+  .pl-name{font-size:28px;letter-spacing:-.5px;text-align:center}
+  .pl-meta{justify-content:center}
+  .pl-desc{text-align:center}
+  .pl-actions{padding:16px;justify-content:center}
+
+  /* Track list */
+  .tl-head.std,.tr.std{grid-template-columns:24px 1fr 60px}
+  .tl-head.std span:nth-child(3),.tl-head.std span:nth-child(4),.tr.std .tr-album,.tr.std .tr-date{display:none}
+  .tl-head.pl,.tr.pl{grid-template-columns:24px 1fr 60px}
+  .tl-head.pl span:nth-child(3){display:none}
+  .tr.pl .tr-album{display:none}
+  .tl-head{margin:0 8px}
+  .tr{padding:8px 10px}
+  .tr-name{font-size:14px}
+  .tr-heart{display:block}
+
+  /* Artist */
+  .artist-header{min-height:240px;padding:60px 16px 16px}
+  .artist-name{font-size:36px;letter-spacing:-1px}
+
+  /* Profile */
+  .profile-top{flex-direction:column;align-items:center;padding:60px 16px 16px;text-align:center}
+  .profile-av{width:120px;height:120px;font-size:48px}
+  .profile-name{font-size:28px;letter-spacing:-.5px}
+  .profile-actions{justify-content:center}
+
+  /* Album */
+  .album-header{flex-direction:column;align-items:center;padding:60px 16px 16px;gap:16px;text-align:center}
+  .album-cover{width:180px;height:180px}
+
+  /* Search results */
+  .top-results{grid-template-columns:1fr;gap:12px;padding:12px 16px 0}
+  .top-card-name{font-size:20px}
+  .s-track{grid-template-columns:16px 36px 1fr 60px;gap:8px;padding:8px}
+
+  /* Settings */
+  .settings-wrap{padding:16px}
+  .settings-wrap h1{font-size:22px}
+  .setting-row{flex-wrap:wrap;gap:10px}
+  .setting-select{font-size:13px;padding:6px 10px}
+  .setting-btn{height:36px;padding:0 14px;font-size:13px}
+  .settings-form{max-width:100%}
+
+  /* Premium */
+  .premium-hero{padding:40px 20px}
+  .premium-hero h1{font-size:28px}
+  .premium-hero p{font-size:15px}
+  .plans-grid{grid-template-columns:1fr;padding:0 16px 40px}
+
+  /* Queue */
+  .queue-page{padding:16px}
+
+  /* Scroll padding for mobile nav */
+  .scroll{padding-bottom:8px}
+
+  /* Toast position */
+  #toast{bottom:140px}
+}
+
+@media (max-width: 480px) {
+  .recents{grid-template-columns:1fr 1fr}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .browse-grid{grid-template-columns:repeat(2,1fr)}
+  .login-wrap{padding:32px 24px 60px}
+  .login-h1{font-size:26px}
+}
 </style>
 </head>
 <body>
@@ -763,7 +679,6 @@ img{display:block;object-fit:cover}
       <button class="auth-tab on" onclick="swtTab('in')">Masuk</button>
       <button class="auth-tab" onclick="swtTab('up')">Daftar</button>
     </div>
-
     <!-- LOGIN -->
     <div id="panIn" class="auth-panel on">
       <div class="social-btns">
@@ -796,44 +711,24 @@ img{display:block;object-fit:cover}
       <button class="main-btn" onclick="doLogin()">Masuk</button>
       <div class="signup-bar">Belum punya akun? <a onclick="swtTab('up')">Daftar Spotify</a></div>
     </div>
-
     <!-- REGISTER -->
     <div id="panUp" class="auth-panel">
       <div id="regErr" class="err-box"></div>
       <div id="regOk" class="succ-box"></div>
-      <div class="field"><label>Apa alamat email Anda?</label>
-        <input type="email" id="rEmail" placeholder="Masukkan email Anda">
-      </div>
-      <div class="field"><label>Konfirmasi email</label>
-        <input type="email" id="rEmail2" placeholder="Masukkan email lagi">
-      </div>
-      <div class="field"><label>Buat kata sandi</label>
-        <input type="password" id="rPass" placeholder="Buat kata sandi" autocomplete="new-password">
-      </div>
-      <div class="field"><label>Siapa nama Anda?</label>
-        <input type="text" id="rName" placeholder="Nama profil Anda">
-      </div>
-      <div class="field"><label>Tanggal lahir</label>
-        <input type="date" id="rDob" style="color-scheme:dark">
-      </div>
+      <div class="field"><label>Apa alamat email Anda?</label><input type="email" id="rEmail" placeholder="Masukkan email Anda"></div>
+      <div class="field"><label>Konfirmasi email</label><input type="email" id="rEmail2" placeholder="Masukkan email lagi"></div>
+      <div class="field"><label>Buat kata sandi</label><input type="password" id="rPass" placeholder="Buat kata sandi" autocomplete="new-password"></div>
+      <div class="field"><label>Siapa nama Anda?</label><input type="text" id="rName" placeholder="Nama profil Anda"></div>
+      <div class="field"><label>Tanggal lahir</label><input type="date" id="rDob" style="color-scheme:dark"></div>
       <div class="field"><label>Jenis kelamin</label>
         <select id="rGender" class="sf-input">
           <option value="">Pilih jenis kelamin</option>
           <option>Pria</option><option>Wanita</option><option>Non-biner</option><option>Lainnya</option>
         </select>
       </div>
-      <div class="check-row">
-        <input type="checkbox" id="chkMarketing">
-        <span>Saya tidak ingin menerima pesan pemasaran dari Spotify</span>
-      </div>
-      <div class="check-row">
-        <input type="checkbox" id="chkShare">
-        <span>Bagikan data pendaftaran saya dengan penyedia konten Spotify untuk tujuan pemasaran. <a>Pelajari selengkapnya</a></span>
-      </div>
-      <div class="check-row">
-        <input type="checkbox" id="chkTerms">
-        <span>Saya menyetujui <a>Ketentuan dan Kondisi Penggunaan</a> Spotify. Untuk mempelajari selengkapnya tentang cara Spotify mengumpulkan, menggunakan, berbagi, dan melindungi data pribadi Anda, baca <a>Kebijakan Privasi</a> Spotify.</span>
-      </div>
+      <div class="check-row"><input type="checkbox" id="chkMarketing"><span>Saya tidak ingin menerima pesan pemasaran dari Spotify</span></div>
+      <div class="check-row"><input type="checkbox" id="chkShare"><span>Bagikan data pendaftaran saya dengan penyedia konten Spotify untuk tujuan pemasaran.</span></div>
+      <div class="check-row"><input type="checkbox" id="chkTerms"><span>Saya menyetujui <a>Ketentuan dan Kondisi Penggunaan</a> Spotify.</span></div>
       <button class="main-btn" style="margin-top:8px" onclick="doRegister()">Daftar</button>
       <div class="signup-bar">Sudah punya akun? <a onclick="swtTab('in')">Masuk di sini</a></div>
     </div>
@@ -843,7 +738,7 @@ img{display:block;object-fit:cover}
 <!-- ============= APP ============= -->
 <div id="app">
   <div class="app-body">
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR (Desktop Only) -->
     <aside class="sidebar">
       <div class="sb-nav">
         <div class="sbn-item on" id="snHome" onclick="goView('home')">
@@ -892,12 +787,8 @@ img{display:block;object-fit:cover}
       <!-- TOPBAR -->
       <div class="topbar" id="topbar">
         <div class="tb-nav">
-          <button class="tb-btn" onclick="goBack()">
-            <svg viewBox="0 0 24 24"><path d="M15.957 2.793a1 1 0 0 1 0 1.414L8.164 12l7.793 7.793a1 1 0 1 1-1.414 1.414L5.336 12l9.207-9.207a1 1 0 0 1 1.414 0z"/></svg>
-          </button>
-          <button class="tb-btn" onclick="goForward()">
-            <svg viewBox="0 0 24 24"><path d="M8.043 2.793a1 1 0 0 0 0 1.414L15.836 12l-7.793 7.793a1 1 0 1 0 1.414 1.414L18.664 12 9.457 2.793a1 1 0 0 0-1.414 0z"/></svg>
-          </button>
+          <button class="tb-btn" onclick="goBack()"><svg viewBox="0 0 24 24"><path d="M15.957 2.793a1 1 0 0 1 0 1.414L8.164 12l7.793 7.793a1 1 0 1 1-1.414 1.414L5.336 12l9.207-9.207a1 1 0 0 1 1.414 0z"/></svg></button>
+          <button class="tb-btn" onclick="goForward()"><svg viewBox="0 0 24 24"><path d="M8.043 2.793a1 1 0 0 0 0 1.414L15.836 12l-7.793 7.793a1 1 0 1 0 1.414 1.414L18.664 12 9.457 2.793a1 1 0 0 0-1.414 0z"/></svg></button>
         </div>
         <div class="search-wrap" id="searchBar" style="display:none">
           <div class="tb-search-icon"><svg viewBox="0 0 24 24"><path d="M10.533 1.279c-5.18 0-9.407 4.279-9.407 9.343 0 5.064 4.226 9.343 9.407 9.343 2.048 0 3.946-.627 5.517-1.68l3.851 3.81a1 1 0 1 0 1.414-1.419l-3.807-3.766A9.276 9.276 0 0 0 19.94 10.622c0-5.064-4.226-9.343-9.407-9.343zm-7.407 9.343c0-4.006 3.302-7.343 7.407-7.343s7.407 3.337 7.407 7.343-3.302 7.343-7.407 7.343-7.407-3.337-7.407-7.343z"/></svg></div>
@@ -913,11 +804,9 @@ img{display:block;object-fit:cover}
           <div class="av-wrap">
             <div class="av" id="topAv" onclick="toggleAvDD()"><span id="topAvTxt">?</span></div>
             <div class="av-dd" id="avDD">
-              <div class="av-dd-item" id="ddNameItem" onclick="goView('profile')">Profil <svg viewBox="0 0 16 16"><path d="M1 2.75A.75.75 0 0 1 1.75 2h12.5a.75.75 0 0 1 0 1.5H1.75A.75.75 0 0 1 1 2.75zm0 5A.75.75 0 0 1 1.75 7h12.5a.75.75 0 0 1 0 1.5H1.75A.75.75 0 0 1 1 7.75zm0 5a.75.75 0 0 1 .75-.75h12.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1-.75-.75z"/></svg></div>
+              <div class="av-dd-item" id="ddNameItem" onclick="goView('profile')">Profil</div>
               <div class="av-dd-item" onclick="goView('premium')">Akun</div>
-              <div class="av-dd-item" onclick="goView('profile')">Profil</div>
               <div class="av-dd-item" onclick="goView('settings')">Pengaturan</div>
-              <div class="av-dd-item" onclick="goView('premium')">Berlangganan</div>
               <div class="av-dd-sep"></div>
               <div class="av-dd-item" onclick="goView('queue')">Antrean</div>
               <div class="av-dd-sep"></div>
@@ -925,7 +814,6 @@ img{display:block;object-fit:cover}
             </div>
           </div>
         </div>
-        <!-- Notif Panel -->
         <div class="notif-panel" id="notifPanel">
           <div class="notif-head">Notifikasi</div>
           <div id="notifList"></div>
@@ -935,58 +823,90 @@ img{display:block;object-fit:cover}
       <!-- SCROLL AREA -->
       <div class="scroll home-bg" id="mainScroll">
         <!-- HOME -->
-        <div id="vHome" style="padding-bottom:40px">
+        <div id="vHome" style="padding-bottom:16px">
           <div class="greeting" id="greeting">Selamat malam</div>
           <div class="recents" id="recents"></div>
           <div class="section"><div class="sec-head"><span class="sec-title">Dibuat untukmu</span><button class="sec-all" onclick="toast('Menampilkan semua rekomendasi')">Tampilkan semua</button></div><div class="cards" id="mfy"></div></div>
           <div class="section"><div class="sec-head"><span class="sec-title">Artis populer</span><button class="sec-all" onclick="toast('Menampilkan semua artis')">Tampilkan semua</button></div><div class="cards" id="artGrid"></div></div>
-          <div class="section" style="padding-bottom:40px"><div class="sec-head"><span class="sec-title">Rilis baru untuk kamu</span><button class="sec-all" onclick="toast('Menampilkan semua rilis baru')">Tampilkan semua</button></div><div class="cards" id="newRel"></div></div>
+          <div class="section" style="padding-bottom:40px"><div class="sec-head"><span class="sec-title">Rilis baru</span><button class="sec-all" onclick="toast('Menampilkan semua rilis baru')">Tampilkan semua</button></div><div class="cards" id="newRel"></div></div>
         </div>
-
         <!-- SEARCH -->
-        <div id="vSearch" style="display:none;padding:16px 24px 40px">
+        <div id="vSearch" style="display:none;padding:16px 16px 40px">
           <div id="browseSection">
-            <h2 style="font-size:24px;font-weight:900;margin-bottom:20px">Jelajahi semua</h2>
+            <h2 style="font-size:22px;font-weight:900;margin-bottom:16px">Jelajahi semua</h2>
             <div class="browse-grid" id="browseGrid"></div>
           </div>
           <div id="resultSection" style="display:none">
             <div class="top-results" id="topResults"></div>
-            <div class="section"><div class="sec-head"><span class="sec-title" style="font-size:22px">Artis</span></div><div class="cards" id="srchArtists"></div></div>
-            <div class="section" style="padding-bottom:40px"><div class="sec-head"><span class="sec-title" style="font-size:22px">Album</span></div><div class="cards" id="srchAlbums"></div></div>
+            <div class="section"><div class="sec-head"><span class="sec-title" style="font-size:18px">Artis</span></div><div class="cards" id="srchArtists"></div></div>
+            <div class="section" style="padding-bottom:40px"><div class="sec-head"><span class="sec-title" style="font-size:18px">Album</span></div><div class="cards" id="srchAlbums"></div></div>
           </div>
         </div>
-
         <!-- LIBRARY -->
-        <div id="vLibrary" style="display:none;padding:40px 24px">
-          <h1 style="font-size:28px;font-weight:900;margin-bottom:24px">Perpustakaan Anda</h1>
+        <div id="vLibrary" style="display:none;padding:24px 16px">
+          <h1 style="font-size:24px;font-weight:900;margin-bottom:20px">Perpustakaan Anda</h1>
           <div id="libViewItems"></div>
         </div>
-
-        <!-- PLAYLIST / LIKED -->
+        <!-- PLAYLIST -->
         <div id="vPlaylist" style="display:none"></div>
-
         <!-- ARTIST -->
         <div id="vArtist" style="display:none"></div>
-
         <!-- ALBUM -->
         <div id="vAlbum" style="display:none"></div>
-
         <!-- PROFILE -->
         <div id="vProfile" style="display:none"></div>
-
         <!-- SETTINGS -->
         <div id="vSettings" style="display:none"></div>
-
         <!-- PREMIUM -->
         <div id="vPremium" style="display:none"></div>
-
         <!-- QUEUE -->
         <div id="vQueue" style="display:none"></div>
       </div>
     </div>
   </div>
 
-  <!-- PLAYER -->
+  <!-- MOBILE MINI PLAYER -->
+  <div class="mobile-player" id="mobilePlayer" onclick="openPlayerExpanded()">
+    <div class="mob-pl-img"><img id="mobPlImg" src="" alt=""></div>
+    <div class="mob-pl-info">
+      <div class="mob-pl-track" id="mobPlTrack">—</div>
+      <div class="mob-pl-artist" id="mobPlArtist">—</div>
+    </div>
+    <div class="mob-pl-btns" onclick="event.stopPropagation()">
+      <div class="mob-pl-btn" onclick="toggleHeart()">
+        <svg viewBox="0 0 24 24" id="mobHeartIco" fill="var(--text2)"><path d="M8.5 4.5a4.5 4.5 0 0 0-4.5 4.5c0 4.65 8.5 12 8.5 12s8.5-7.35 8.5-12a4.5 4.5 0 0 0-4.5-4.5c-1.36 0-2.576.596-3.4 1.536A4.487 4.487 0 0 0 8.5 4.5z"/></svg>
+      </div>
+      <div class="mob-pl-btn pp" onclick="togglePlay()">
+        <svg viewBox="0 0 24 24" id="mobPlayIco" fill="#fff"><path d="M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1.625.781l11-8a1 1 0 0 0 0-1.562l-11-8A1 1 0 0 0 7 3z"/></svg>
+        <svg viewBox="0 0 24 24" id="mobPauseIco" fill="#fff" style="display:none"><path d="M5.7 3a.7.7 0 0 0-.7.7v16.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V3.7a.7.7 0 0 0-.7-.7H5.7zm10 0a.7.7 0 0 0-.7.7v16.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V3.7a.7.7 0 0 0-.7-.7h-2.6z"/></svg>
+      </div>
+      <div class="mob-pl-btn" onclick="nextTrack()">
+        <svg viewBox="0 0 24 24" fill="var(--text2)"><path d="M20.7 1a.7.7 0 0 1 .7.7V22.3a.7.7 0 0 1-.7.7h-1a.7.7 0 0 1-.7-.7v-8.15L8.4 21.994a.7.7 0 0 1-1.1-.576V2.582a.7.7 0 0 1 1.1-.576L20 9.85V1.7a.7.7 0 0 1 .7-.7h1z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mob-nav-item on" id="mnHome" onclick="mobNav('home')">
+      <svg viewBox="0 0 24 24"><path d="M12.5 3.247a1 1 0 0 0-1 0L4 7.577V20h4.5v-6a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v6H20V7.577l-7.5-4.33zm-2-1.732a3 3 0 0 1 3 0l7.5 4.33a2 2 0 0 1 1 1.732V21a1 1 0 0 1-1 1h-6.5a1 1 0 0 1-1-1v-6h-3v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.577a2 2 0 0 1 1-1.732l7.5-4.33z"/></svg>
+      <span>Beranda</span>
+    </div>
+    <div class="mob-nav-item" id="mnSearch" onclick="mobNav('search')">
+      <svg viewBox="0 0 24 24"><path d="M10.533 1.279c-5.18 0-9.407 4.279-9.407 9.343 0 5.064 4.226 9.343 9.407 9.343 2.048 0 3.946-.627 5.517-1.68l3.851 3.81a1 1 0 1 0 1.414-1.419l-3.807-3.766A9.276 9.276 0 0 0 19.94 10.622c0-5.064-4.226-9.343-9.407-9.343zm-7.407 9.343c0-4.006 3.302-7.343 7.407-7.343s7.407 3.337 7.407 7.343-3.302 7.343-7.407 7.343-7.407-3.337-7.407-7.343z"/></svg>
+      <span>Cari</span>
+    </div>
+    <div class="mob-nav-item" id="mnLibrary" onclick="mobNav('library')">
+      <svg viewBox="0 0 24 24"><path d="M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zm6-14v12l10-6-10-6z"/></svg>
+      <span>Koleksi</span>
+    </div>
+    <div class="mob-nav-item" id="mnProfile" onclick="mobNav('profile')">
+      <svg viewBox="0 0 24 24"><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0 9c-4.42 0-8 1.79-8 4v1h2v-1c0-1.1 2.69-2 6-2s6 .9 6 2v1h2v-1c0-2.21-3.58-4-8-4z"/></svg>
+      <span>Profil</span>
+    </div>
+  </div>
+
+  <!-- DESKTOP PLAYER BAR -->
   <div id="player">
     <div class="pl-left">
       <div class="pl-thumb" id="plThumb" onclick="goView('queue')"><img id="plImg" src="" alt="" style="display:none"></div>
@@ -1001,36 +921,82 @@ img{display:block;object-fit:cover}
     </div>
     <div class="pl-center">
       <div class="pl-ctrl">
-        <div class="ctrl sm" id="shuffleCtrl" onclick="toggleShuffle()" title="Acak"><svg viewBox="0 0 24 24"><path d="M16.676 3.232a1 1 0 0 1 1.13.211l3.87 4.097a1 1 0 0 1 0 1.379l-3.87 4.097a1 1 0 0 1-1.676-.73V10.5H15.3c-.92 0-1.747.49-2.204 1.28l-2.656 4.567A4.5 4.5 0 0 1 6.51 18.5H4a1 1 0 0 1 0-2h2.51c.92 0 1.748-.49 2.204-1.28l2.656-4.567A4.5 4.5 0 0 1 15.3 8.5h1.376V6.402a1 1 0 0 1 .677-.97h.323zM6.51 5.5H4a1 1 0 1 1 0-2h2.51a4.5 4.5 0 0 1 3.93 2.317l.677 1.165a1 1 0 1 1-1.744.984L8.696 6.8A2.5 2.5 0 0 0 6.51 5.5zm10.166 9.786a1 1 0 0 1 1.001.001l2.619 2.774a1 1 0 0 1 0 1.379l-2.619 2.774a1 1 0 0 1-1.677-.72V19h-1.376a2.5 2.5 0 0 1-2.187-1.29 1 1 0 1 1 1.744-.984c.155.267.44.274.443.274h1.376v-1.993a1 1 0 0 1 .676-.721z"/></svg></div>
-        <div class="ctrl" onclick="prevTrack()" title="Sebelumnya"><svg viewBox="0 0 24 24"><path d="M3.3 1a.7.7 0 0 1 .7.7v8.05L15.6 2.006a.7.7 0 0 1 1.1.576v18.836a.7.7 0 0 1-1.1.576L4 14.15V22.3a.7.7 0 0 1-.7.7H2.3a.7.7 0 0 1-.7-.7V1.7a.7.7 0 0 1 .7-.7h1z"/></svg></div>
+        <div class="ctrl sm" id="shuffleCtrl" onclick="toggleShuffle()"><svg viewBox="0 0 24 24"><path d="M16.676 3.232a1 1 0 0 1 1.13.211l3.87 4.097a1 1 0 0 1 0 1.379l-3.87 4.097a1 1 0 0 1-1.676-.73V10.5H15.3c-.92 0-1.747.49-2.204 1.28l-2.656 4.567A4.5 4.5 0 0 1 6.51 18.5H4a1 1 0 0 1 0-2h2.51c.92 0 1.748-.49 2.204-1.28l2.656-4.567A4.5 4.5 0 0 1 15.3 8.5h1.376V6.402a1 1 0 0 1 .677-.97h.323zM6.51 5.5H4a1 1 0 1 1 0-2h2.51a4.5 4.5 0 0 1 3.93 2.317l.677 1.165a1 1 0 1 1-1.744.984L8.696 6.8A2.5 2.5 0 0 0 6.51 5.5zm10.166 9.786a1 1 0 0 1 1.001.001l2.619 2.774a1 1 0 0 1 0 1.379l-2.619 2.774a1 1 0 0 1-1.677-.72V19h-1.376a2.5 2.5 0 0 1-2.187-1.29 1 1 0 1 1 1.744-.984c.155.267.44.274.443.274h1.376v-1.993a1 1 0 0 1 .676-.721z"/></svg></div>
+        <div class="ctrl" onclick="prevTrack()"><svg viewBox="0 0 24 24"><path d="M3.3 1a.7.7 0 0 1 .7.7v8.05L15.6 2.006a.7.7 0 0 1 1.1.576v18.836a.7.7 0 0 1-1.1.576L4 14.15V22.3a.7.7 0 0 1-.7.7H2.3a.7.7 0 0 1-.7-.7V1.7a.7.7 0 0 1 .7-.7h1z"/></svg></div>
         <div class="pp-btn" id="ppBtn" onclick="togglePlay()">
           <svg viewBox="0 0 24 24" id="playIco"><path d="M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1.625.781l11-8a1 1 0 0 0 0-1.562l-11-8A1 1 0 0 0 7 3z"/></svg>
           <svg viewBox="0 0 24 24" id="pauseIco" style="display:none"><path d="M5.7 3a.7.7 0 0 0-.7.7v16.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V3.7a.7.7 0 0 0-.7-.7H5.7zm10 0a.7.7 0 0 0-.7.7v16.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V3.7a.7.7 0 0 0-.7-.7h-2.6z"/></svg>
         </div>
-        <div class="ctrl" onclick="nextTrack()" title="Berikutnya"><svg viewBox="0 0 24 24"><path d="M20.7 1a.7.7 0 0 1 .7.7V22.3a.7.7 0 0 1-.7.7h-1a.7.7 0 0 1-.7-.7v-8.15L8.4 21.994a.7.7 0 0 1-1.1-.576V2.582a.7.7 0 0 1 1.1-.576L20 9.85V1.7a.7.7 0 0 1 .7-.7h1z"/></svg></div>
-        <div class="ctrl sm" id="repeatCtrl" onclick="cycleRepeat()" title="Ulangi"><svg viewBox="0 0 24 24" id="repeatIco"><path d="M0 4.75A3.75 3.75 0 0 1 3.75 1h.75a1 1 0 0 1 0 2h-.75A1.75 1.75 0 0 0 2 4.75v5A1.75 1.75 0 0 0 3.75 11.5h14.5A1.75 1.75 0 0 0 20 9.75v-5A1.75 1.75 0 0 0 18.25 3H17a1 1 0 0 1 0-2h1.25A3.75 3.75 0 0 1 22 4.75v5a3.75 3.75 0 0 1-3.75 3.75H3.75A3.75 3.75 0 0 1 0 9.75v-5zM0 14.25A3.75 3.75 0 0 1 3.75 10.5h.75a1 1 0 0 1 0 2h-.75A1.75 1.75 0 0 0 2 14.25v5A1.75 1.75 0 0 0 3.75 21h14.5A1.75 1.75 0 0 0 20 19.25v-5A1.75 1.75 0 0 0 18.25 17H17a1 1 0 0 1 0-2h1.25A3.75 3.75 0 0 1 22 14.25v5a3.75 3.75 0 0 1-3.75 3.75H3.75A3.75 3.75 0 0 1 0 19.25v-5z"/></svg></div>
+        <div class="ctrl" onclick="nextTrack()"><svg viewBox="0 0 24 24"><path d="M20.7 1a.7.7 0 0 1 .7.7V22.3a.7.7 0 0 1-.7.7h-1a.7.7 0 0 1-.7-.7v-8.15L8.4 21.994a.7.7 0 0 1-1.1-.576V2.582a.7.7 0 0 1 1.1-.576L20 9.85V1.7a.7.7 0 0 1 .7-.7h1z"/></svg></div>
+        <div class="ctrl sm" id="repeatCtrl" onclick="cycleRepeat()"><svg viewBox="0 0 24 24" id="repeatIco"><path d="M0 4.75A3.75 3.75 0 0 1 3.75 1h.75a1 1 0 0 1 0 2h-.75A1.75 1.75 0 0 0 2 4.75v5A1.75 1.75 0 0 0 3.75 11.5h14.5A1.75 1.75 0 0 0 20 9.75v-5A1.75 1.75 0 0 0 18.25 3H17a1 1 0 0 1 0-2h1.25A3.75 3.75 0 0 1 22 4.75v5a3.75 3.75 0 0 1-3.75 3.75H3.75A3.75 3.75 0 0 1 0 9.75v-5zM0 14.25A3.75 3.75 0 0 1 3.75 10.5h.75a1 1 0 0 1 0 2h-.75A1.75 1.75 0 0 0 2 14.25v5A1.75 1.75 0 0 0 3.75 21h14.5A1.75 1.75 0 0 0 20 19.25v-5A1.75 1.75 0 0 0 18.25 17H17a1 1 0 0 1 0-2h1.25A3.75 3.75 0 0 1 22 14.25v5a3.75 3.75 0 0 1-3.75 3.75H3.75A3.75 3.75 0 0 1 0 19.25v-5z"/></svg></div>
       </div>
       <div class="prog-row">
         <span class="prog-time" id="curTime">0:00</span>
         <div class="prog-wrap" id="progWrap" onclick="seekTo(event)">
-          <div class="prog-bar" id="progBar" style="width:0%" data-total="200">
-            <div class="prog-dot"></div>
-          </div>
+          <div class="prog-bar" id="progBar" style="width:0%" data-total="200"><div class="prog-dot"></div></div>
         </div>
         <span class="prog-time" id="totTime">0:00</span>
       </div>
     </div>
     <div class="pl-right">
-      <div class="r-btn" onclick="goView('queue')" title="Antrean"><svg viewBox="0 0 24 24"><path d="M15 18a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h12zm4-5a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h16zm2-5a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18z"/></svg></div>
-      <div class="r-btn" onclick="toast('Perangkat: Browser Web')" title="Perangkat"><svg viewBox="0 0 24 24"><path d="M6 3a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h2a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6zm0 2h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm10-2a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h2a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3h-2zm0 2h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM6 13a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h2a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3H6zm0 2h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1zm10-2a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h2a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3h-2zm0 2h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1z"/></svg></div>
+      <div class="r-btn" onclick="goView('queue')"><svg viewBox="0 0 24 24"><path d="M15 18a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h12zm4-5a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h16zm2-5a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18z"/></svg></div>
       <div class="vol-wrap">
         <div class="r-btn" id="volBtn" onclick="muteVol()"><svg viewBox="0 0 24 24" id="volIco"><path d="M13 3a1 1 0 0 0-1.707-.707L7.586 6H5a3 3 0 0 0-3 3v4a3 3 0 0 0 3 3h2.586l3.707 3.707A1 1 0 0 0 13 19V3zm-1 2.414 2.586 2.586H5a1 1 0 0 1 1 1v-3a1 1 0 0 1 1-1h1.586L12 5.414zM19.463 4.39a1 1 0 0 1 1.414-.047 8.5 8.5 0 0 1 0 11.314 1 1 0 0 1-1.367-1.462 6.5 6.5 0 0 0 0-8.391 1 1 0 0 1 .047-1.414zm-2.458 2.429a1 1 0 0 1 1.414-.093 5 5 0 0 1 0 6.548 1 1 0 0 1-1.507-1.321 3 3 0 0 0 0-3.906 1 1 0 0 1 .093-1.228z"/></svg></div>
-        <div class="vol-bar-wrap" id="volWrap" onclick="setVol(event)">
-          <div class="vol-bar" id="volBar" style="width:65%"></div>
-        </div>
+        <div class="vol-bar-wrap" id="volWrap" onclick="setVol(event)"><div class="vol-bar" id="volBar" style="width:65%"></div></div>
       </div>
-      <div class="r-btn" onclick="toast('Mode layar penuh')" title="Layar penuh"><svg viewBox="0 0 24 24"><path d="M5 5h6a1 1 0 0 0 0-2H3a1 1 0 0 0-1 1v8a1 1 0 0 0 2 0V5zm14 0v7a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1h-8a1 1 0 0 0 0 2h7zm0 14h-7a1 1 0 0 0 0 2h8a1 1 0 0 0 1-1v-8a1 1 0 0 0-2 0v7zM5 19v-7a1 1 0 0 0-2 0v8a1 1 0 0 0 1 1h8a1 1 0 0 0 0-2H5z"/></svg></div>
+      <div class="r-btn" onclick="toast('Mode layar penuh')"><svg viewBox="0 0 24 24"><path d="M5 5h6a1 1 0 0 0 0-2H3a1 1 0 0 0-1 1v8a1 1 0 0 0 2 0V5zm14 0v7a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1h-8a1 1 0 0 0 0 2h7zm0 14h-7a1 1 0 0 0 0 2h8a1 1 0 0 0 1-1v-8a1 1 0 0 0-2 0v7zM5 19v-7a1 1 0 0 0-2 0v8a1 1 0 0 0 1 1h8a1 1 0 0 0 0-2H5z"/></svg></div>
     </div>
+  </div>
+</div>
+
+<!-- EXPANDED PLAYER (Mobile) -->
+<div class="player-expanded" id="playerExpanded">
+  <div class="pex-header">
+    <div class="pex-close" onclick="closePlayerExpanded()"><svg viewBox="0 0 24 24"><path d="M12 13.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 12 6.293 7.707a1 1 0 0 1 1.414-1.414L12 10.586l4.293-4.293a1 1 0 0 1 1.414 1.414L13.414 12l4.293 4.293a1 1 0 0 1-1.414 1.414L12 13.414z"/></svg></div>
+    <div class="pex-title">Sedang Diputar</div>
+    <div style="width:32px"></div>
+  </div>
+  <div class="pex-img"><img id="pexImg" src="" alt=""></div>
+  <div class="pex-info">
+    <div>
+      <div class="pex-track" id="pexTrack">—</div>
+      <div class="pex-artist" id="pexArtist">—</div>
+    </div>
+    <div class="pex-heart" id="pexHeart" onclick="toggleHeart()">
+      <svg viewBox="0 0 24 24" id="pexHeartIco" fill="var(--text2)"><path d="M8.5 4.5a4.5 4.5 0 0 0-4.5 4.5c0 4.65 8.5 12 8.5 12s8.5-7.35 8.5-12a4.5 4.5 0 0 0-4.5-4.5c-1.36 0-2.576.596-3.4 1.536A4.487 4.487 0 0 0 8.5 4.5z"/></svg>
+    </div>
+  </div>
+  <div class="pex-prog">
+    <div class="prog-row">
+      <span class="prog-time" id="pexCurTime">0:00</span>
+      <div class="prog-wrap" id="pexProgWrap" onclick="seekTo(event)">
+        <div class="prog-bar" id="pexProgBar" style="width:0%" data-total="200"><div class="prog-dot"></div></div>
+      </div>
+      <span class="prog-time" id="pexTotTime">0:00</span>
+    </div>
+  </div>
+  <div class="pex-ctrl">
+    <div class="pex-btn" id="pexShuffle" onclick="toggleShuffle()">
+      <svg viewBox="0 0 24 24"><path d="M16.676 3.232a1 1 0 0 1 1.13.211l3.87 4.097a1 1 0 0 1 0 1.379l-3.87 4.097a1 1 0 0 1-1.676-.73V10.5H15.3c-.92 0-1.747.49-2.204 1.28l-2.656 4.567A4.5 4.5 0 0 1 6.51 18.5H4a1 1 0 0 1 0-2h2.51c.92 0 1.748-.49 2.204-1.28l2.656-4.567A4.5 4.5 0 0 1 15.3 8.5h1.376V6.402a1 1 0 0 1 .677-.97h.323zM6.51 5.5H4a1 1 0 1 1 0-2h2.51a4.5 4.5 0 0 1 3.93 2.317l.677 1.165a1 1 0 1 1-1.744.984L8.696 6.8A2.5 2.5 0 0 0 6.51 5.5zm10.166 9.786a1 1 0 0 1 1.001.001l2.619 2.774a1 1 0 0 1 0 1.379l-2.619 2.774a1 1 0 0 1-1.677-.72V19h-1.376a2.5 2.5 0 0 1-2.187-1.29 1 1 0 1 1 1.744-.984c.155.267.44.274.443.274h1.376v-1.993a1 1 0 0 1 .676-.721z"/></svg>
+    </div>
+    <div class="pex-btn" onclick="prevTrack()">
+      <svg viewBox="0 0 24 24" fill="var(--text2)"><path d="M3.3 1a.7.7 0 0 1 .7.7v8.05L15.6 2.006a.7.7 0 0 1 1.1.576v18.836a.7.7 0 0 1-1.1.576L4 14.15V22.3a.7.7 0 0 1-.7.7H2.3a.7.7 0 0 1-.7-.7V1.7a.7.7 0 0 1 .7-.7h1z"/></svg>
+    </div>
+    <div class="pex-pp" id="pexPp" onclick="togglePlay()">
+      <svg viewBox="0 0 24 24" id="pexPlayIco"><path d="M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1.625.781l11-8a1 1 0 0 0 0-1.562l-11-8A1 1 0 0 0 7 3z"/></svg>
+      <svg viewBox="0 0 24 24" id="pexPauseIco" style="display:none"><path d="M5.7 3a.7.7 0 0 0-.7.7v16.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V3.7a.7.7 0 0 0-.7-.7H5.7zm10 0a.7.7 0 0 0-.7.7v16.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V3.7a.7.7 0 0 0-.7-.7h-2.6z"/></svg>
+    </div>
+    <div class="pex-btn" onclick="nextTrack()">
+      <svg viewBox="0 0 24 24" fill="var(--text2)"><path d="M20.7 1a.7.7 0 0 1 .7.7V22.3a.7.7 0 0 1-.7.7h-1a.7.7 0 0 1-.7-.7v-8.15L8.4 21.994a.7.7 0 0 1-1.1-.576V2.582a.7.7 0 0 1 1.1-.576L20 9.85V1.7a.7.7 0 0 1 .7-.7h1z"/></svg>
+    </div>
+    <div class="pex-btn" id="pexRepeat" onclick="cycleRepeat()">
+      <svg viewBox="0 0 24 24"><path d="M0 4.75A3.75 3.75 0 0 1 3.75 1h.75a1 1 0 0 1 0 2h-.75A1.75 1.75 0 0 0 2 4.75v5A1.75 1.75 0 0 0 3.75 11.5h14.5A1.75 1.75 0 0 0 20 9.75v-5A1.75 1.75 0 0 0 18.25 3H17a1 1 0 0 1 0-2h1.25A3.75 3.75 0 0 1 22 4.75v5a3.75 3.75 0 0 1-3.75 3.75H3.75A3.75 3.75 0 0 1 0 9.75v-5zM0 14.25A3.75 3.75 0 0 1 3.75 10.5h.75a1 1 0 0 1 0 2h-.75A1.75 1.75 0 0 0 2 14.25v5A1.75 1.75 0 0 0 3.75 21h14.5A1.75 1.75 0 0 0 20 19.25v-5A1.75 1.75 0 0 0 18.25 17H17a1 1 0 0 1 0-2h1.25A3.75 3.75 0 0 1 22 14.25v5a3.75 3.75 0 0 1-3.75 3.75H3.75A3.75 3.75 0 0 1 0 19.25v-5z"/></svg>
+    </div>
+  </div>
+  <div class="pex-vol">
+    <svg viewBox="0 0 24 24" fill="var(--text2)"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+    <div class="vol-bar-wrap" style="flex:1" onclick="setVol(event)"><div class="vol-bar" id="pexVolBar" style="width:65%"></div></div>
+    <svg viewBox="0 0 24 24" fill="var(--text2)"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
   </div>
 </div>
 
@@ -1040,7 +1006,7 @@ img{display:block;object-fit:cover}
     <div class="modal-close" onclick="closeEditModal()"><svg viewBox="0 0 24 24"><path d="M3.293 3.293a1 1 0 0 1 1.414 0L12 10.586l7.293-7.293a1 1 0 1 1 1.414 1.414L13.414 12l7.293 7.293a1 1 0 0 1-1.414 1.414L12 13.414l-7.293 7.293a1 1 0 0 1-1.414-1.414L10.586 12 3.293 4.707a1 1 0 0 1 0-1.414z"/></svg></div>
     <h2>Detail profil</h2>
     <div class="sf-avatar-wrap">
-      <div class="sf-avatar" id="editAv" onclick="toast('Pilih foto profil dari file')"><span id="editAvTxt">?</span></div>
+      <div class="sf-avatar" id="editAv" onclick="toast('Pilih foto profil')"><span id="editAvTxt">?</span></div>
       <div class="sf-avatar-btns">
         <button class="setting-btn" onclick="toast('Pilih foto')">Pilih foto</button>
         <button class="setting-btn danger" onclick="toast('Foto dihapus')">Hapus foto</button>
@@ -1062,29 +1028,24 @@ img{display:block;object-fit:cover}
   <div class="ctx-item" onclick="toast('Menampilkan artis')">Tampilkan artis</div>
   <div class="ctx-item" onclick="toast('Menampilkan album')">Tampilkan album</div>
   <div class="ctx-sep"></div>
-  <div class="ctx-item" onclick="toast('Disalin ke clipboard')"><svg viewBox="0 0 24 24"><path d="M13.75 1.5h-3.5A.75.75 0 0 0 9.5 2.25v.5H6.75A.75.75 0 0 0 6 3.5v18a.75.75 0 0 0 .75.75h10.5A.75.75 0 0 0 18 21.5v-18a.75.75 0 0 0-.75-.75H14.5v-.5a.75.75 0 0 0-.75-.75zm-.75 1.5v.75a.75.75 0 0 1-.75.75h-2a.75.75 0 0 1-.75-.75V3h3.5z"/></svg> Salin tautan lagu</div>
+  <div class="ctx-item" onclick="toast('Disalin ke clipboard')">Salin tautan lagu</div>
 </div>
 
 <!-- TOAST -->
 <div id="toast"></div>
 
 <script>
-/* ============================================================
-   DATA & DATABASE
-   ============================================================ */
-const DB_KEY = 'sp_users_v2';
-const SESS_KEY = 'sp_sess_v2';
-const PREF_KEY = 'sp_prefs';
-const getDB = () => { try{return JSON.parse(localStorage.getItem(DB_KEY))||[]}catch{return[]} };
-const setDB = d => localStorage.setItem(DB_KEY, JSON.stringify(d));
-const getSess = () => { try{return JSON.parse(localStorage.getItem(SESS_KEY))||null}catch{return null} };
-const setSess = u => localStorage.setItem(SESS_KEY, JSON.stringify(u));
-const clrSess = () => localStorage.removeItem(SESS_KEY);
-const getPrefs = () => { try{return JSON.parse(localStorage.getItem(PREF_KEY))||{}}catch{return{}} };
-const setPrefs = p => localStorage.setItem(PREF_KEY, JSON.stringify({...getPrefs(),...p}));
+/* DATA */
+const DB_KEY='sp_users_v2',SESS_KEY='sp_sess_v2',PREF_KEY='sp_prefs';
+const getDB=()=>{try{return JSON.parse(localStorage.getItem(DB_KEY))||[]}catch{return[]}};
+const setDB=d=>localStorage.setItem(DB_KEY,JSON.stringify(d));
+const getSess=()=>{try{return JSON.parse(localStorage.getItem(SESS_KEY))||null}catch{return null}};
+const setSess=u=>localStorage.setItem(SESS_KEY,JSON.stringify(u));
+const clrSess=()=>localStorage.removeItem(SESS_KEY);
+const getPrefs=()=>{try{return JSON.parse(localStorage.getItem(PREF_KEY))||{}}catch{return{}}};
+const setPrefs=p=>localStorage.setItem(PREF_KEY,JSON.stringify({...getPrefs(),...p}));
 
-/* MUSIC DATA */
-const TRACKS = [
+const TRACKS=[
   {id:1,title:'Flowers',artist:'Miley Cyrus',album:'Endless Summer Vacation',dur:201,img:'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=300&auto=format&fit=crop'},
   {id:2,title:'Anti-Hero',artist:'Taylor Swift',album:'Midnights',dur:200,img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&auto=format&fit=crop'},
   {id:3,title:'As It Was',artist:'Harry Styles',album:"Harry's House",dur:157,img:'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&auto=format&fit=crop'},
@@ -1098,7 +1059,7 @@ const TRACKS = [
   {id:11,title:'Shape of You',artist:'Ed Sheeran',album:'÷ (Divide)',dur:234,img:'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=300&auto=format&fit=crop'},
   {id:12,title:'Peaches',artist:'Justin Bieber',album:'Justice',dur:198,img:'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?w=300&auto=format&fit=crop'},
 ];
-const ARTISTS = [
+const ARTISTS=[
   {name:'Taylor Swift',img:'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&auto=format&fit=crop',followers:'87.6 Jt',bg:'#3d2d1e'},
   {name:'Bad Bunny',img:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&auto=format&fit=crop',followers:'62.1 Jt',bg:'#1a2d3e'},
   {name:'The Weeknd',img:'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=400&auto=format&fit=crop',followers:'54.3 Jt',bg:'#2d1e1e'},
@@ -1106,15 +1067,15 @@ const ARTISTS = [
   {name:'Dua Lipa',img:'https://images.unsplash.com/photo-1532453288672-3a56f2e06212?w=400&auto=format&fit=crop',followers:'45.8 Jt',bg:'#1e2d1e'},
   {name:'Ed Sheeran',img:'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&auto=format&fit=crop',followers:'89.4 Jt',bg:'#2d2d1e'},
 ];
-const PLAYLISTS = [
+const PLAYLISTS=[
   {id:'p1',name:'Top 50 - Global',desc:'Lagu paling banyak diputar di seluruh dunia',img:'https://images.unsplash.com/photo-1614680376408-81e91ffe3db7?w=300&auto=format&fit=crop',type:'Playlist Spotify'},
   {id:'p2',name:'Viral 50 - Indonesia',desc:'Lagu paling viral di Indonesia minggu ini',img:'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=300&auto=format&fit=crop',type:'Playlist Spotify'},
   {id:'p3',name:'Mood Booster',desc:'Bikin hari kamu penuh semangat!',img:'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&auto=format&fit=crop',type:'Playlist Spotify'},
-  {id:'p4',name:"Today's Top Hits",desc:'Lagu terpopuler hari ini di seluruh dunia',img:'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=300&auto=format&fit=crop',type:'Playlist Spotify'},
+  {id:'p4',name:"Today's Top Hits",desc:'Lagu terpopuler hari ini',img:'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=300&auto=format&fit=crop',type:'Playlist Spotify'},
   {id:'p5',name:'RapCaviar',desc:'Budaya musik rap terdepan',img:'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=300&auto=format&fit=crop',type:'Playlist Spotify'},
   {id:'p6',name:'Hot Hits Indonesia',desc:'Lagu Indonesia paling banyak diputar',img:'https://images.unsplash.com/photo-1527368746281-798b9e97a3b8?w=300&auto=format&fit=crop',type:'Playlist Spotify'},
 ];
-const ALBUMS = [
+const ALBUMS=[
   {id:'a1',name:'Midnights',artist:'Taylor Swift',year:2022,img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&auto=format&fit=crop'},
   {id:'a2',name:"Harry's House",artist:'Harry Styles',year:2022,img:'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&auto=format&fit=crop'},
   {id:'a3',name:'Future Nostalgia',artist:'Dua Lipa',year:2020,img:'https://images.unsplash.com/photo-1532453288672-3a56f2e06212?w=300&auto=format&fit=crop'},
@@ -1122,7 +1083,7 @@ const ALBUMS = [
   {id:'a5',name:'Un Verano Sin Ti',artist:'Bad Bunny',year:2022,img:'https://images.unsplash.com/photo-1527368746281-798b9e97a3b8?w=300&auto=format&fit=crop'},
   {id:'a6',name:'After Hours',artist:'The Weeknd',year:2020,img:'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=300&auto=format&fit=crop'},
 ];
-const BROWSE_CATS = [
+const BROWSE_CATS=[
   {name:'Podcast',color:'#8D67AB',img:'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=200&auto=format&fit=crop'},
   {name:'Artis',color:'#E8115B',img:'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?w=200&auto=format&fit=crop'},
   {name:'Charts',color:'#1E3264',img:'https://images.unsplash.com/photo-1614680376408-81e91ffe3db7?w=200&auto=format&fit=crop'},
@@ -1140,79 +1101,64 @@ const BROWSE_CATS = [
   {name:'Indie',color:'#537AA1',img:'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?w=200&auto=format&fit=crop'},
   {name:'Focus',color:'#608108',img:'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=200&auto=format&fit=crop'},
 ];
-
-/* STATE */
-let user = null;
-let playing = false, shuffle = false, repeat = 0; // 0=off,1=all,2=one
-let tIdx = 0, prog = 0, vol = 65, muted = false;
-let liked = new Set();
-let heartOn = false;
-let prgInterval = null;
-let viewStack = ['home'];
-let curView = 'home';
-let userBio = '';
-let userCustomName = '';
-const NOTIFS = [
-  {icon:'🎵',text:'Taylor Swift — Midnights telah ditambahkan ke perpustakaan Anda',time:'2 menit lalu',unread:true},
+const NOTIFS=[
+  {icon:'🎵',text:'Taylor Swift — Midnights ditambahkan ke perpustakaanmu',time:'2 menit lalu',unread:true},
   {icon:'🎉',text:'Playlist "Dibuat Untukmu" telah diperbarui',time:'1 jam lalu',unread:true},
   {icon:'🔔',text:'Bad Bunny merilis lagu baru!',time:'3 jam lalu',unread:false},
   {icon:'🎶',text:'Konser virtual Taylor Swift tersedia',time:'Kemarin',unread:false},
 ];
 
-/* ============================================================
-   INIT
-   ============================================================ */
-window.addEventListener('DOMContentLoaded', () => {
-  const s = getSess();
-  if (s) { user = s; enterApp(); }
-  renderHome();
-  renderBrowse();
-  renderLibrarySidebar();
-  renderNotifs();
-  setGreeting();
-  document.addEventListener('click', e => {
-    if (!e.target.closest('.av-wrap')) closeAvDD();
-    if (!e.target.closest('.notif-panel') && !e.target.closest('.tb-icon-btn')) closeNotif();
-    if (!e.target.closest('.ctx-menu')) document.getElementById('ctxMenu').classList.remove('on');
+/* STATE */
+let user=null,playing=false,shuffle=false,repeat=0,tIdx=0,prog=0,vol=65,muted=false;
+let liked=new Set(),heartOn=false,prgInterval=null,viewStack=['home'],curView='home';
+let userBio='',userCustomName='';
+const isMobile=()=>window.innerWidth<=768;
+
+/* INIT */
+window.addEventListener('DOMContentLoaded',()=>{
+  const s=getSess();
+  if(s){user=s;enterApp()}
+  renderHome();renderBrowse();renderLibrarySidebar();renderNotifs();setGreeting();
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('.av-wrap'))closeAvDD();
+    if(!e.target.closest('.notif-panel')&&!e.target.closest('.tb-icon-btn'))closeNotif();
+    if(!e.target.closest('.ctx-menu'))document.getElementById('ctxMenu').classList.remove('on');
   });
-  document.addEventListener('contextmenu', e => {
-    if (e.target.closest('.tr, .sp-card, .lib-item, .q-item')) {
-      e.preventDefault();
-      showCtx(e.clientX, e.clientY);
-    }
+  document.addEventListener('contextmenu',e=>{
+    if(e.target.closest('.tr,.sp-card,.lib-item,.q-item')){e.preventDefault();showCtx(e.clientX,e.clientY)}
   });
 });
 
-/* ============================================================
-   AUTH
-   ============================================================ */
-function swtTab(t) {
-  ['in','up'].forEach((id,i) => {
-    const tab = document.querySelectorAll('.auth-tab')[i];
-    const pan = document.getElementById('pan'+id[0].toUpperCase()+id.slice(1));
-    if(id===t){tab.classList.add('on');pan.classList.add('on')}else{tab.classList.remove('on');pan.classList.remove('on')}
+/* AUTH */
+function swtTab(t){
+  ['in','up'].forEach((id,i)=>{
+    const tab=document.querySelectorAll('.auth-tab')[i];
+    const panId='pan'+id[0].toUpperCase()+id.slice(1);
+    const pan=document.getElementById(panId);
+    if(id===t){tab.classList.add('on');pan.classList.add('on')}
+    else{tab.classList.remove('on');pan.classList.remove('on')}
   });
 }
-function socialLogin(p) {
+function socialLogin(p){
   toast(`Menghubungkan ke ${p}...`);
-  setTimeout(() => {
-    const email = `user_${Date.now()}@${p.toLowerCase()}.com`;
-    const u = {id:Date.now(),email,password:'social_'+p,name:`Pengguna ${p}`,method:p,dob:'',gender:'',created:new Date().toLocaleDateString('id-ID')};
-    const db = getDB(); db.push(u); setDB(db);
-    user = u; setSess(u); enterApp();
-  }, 900);
+  setTimeout(()=>{
+    const email=`user_${Date.now()}@${p.toLowerCase()}.com`;
+    const u={id:Date.now(),email,password:'social_'+p,name:`Pengguna ${p}`,method:p,created:new Date().toLocaleDateString('id-ID')};
+    const db=getDB();db.push(u);setDB(db);
+    user=u;setSess(u);enterApp();
+  },900);
 }
-function doLogin() {
-  const email = document.getElementById('lEmail').value.trim();
-  const pass = document.getElementById('lPass').value;
-  const err = document.getElementById('loginErr');
+function doLogin(){
+  const email=document.getElementById('lEmail').value.trim();
+  const pass=document.getElementById('lPass').value;
+  const err=document.getElementById('loginErr');
   err.style.display='none';
-  if (!email||!pass){showErr(err,'Isi email dan kata sandi terlebih dahulu.');return}
-  const u = getDB().find(x=>x.email.toLowerCase()===email.toLowerCase()&&x.password===pass);
-  if (!u){showErr(err,'Email atau kata sandi salah. Silakan periksa kembali.');return}
-  user=u; setSess(u); enterApp();
+  if(!email||!pass){showErr(err,'Isi email dan kata sandi terlebih dahulu.');return}
+  const u=getDB().find(x=>x.email.toLowerCase()===email.toLowerCase()&&x.password===pass);
+  if(!u){showErr(err,'Email atau kata sandi salah. Silakan periksa kembali.');return}
+  user=u;setSess(u);enterApp();
 }
-function doRegister() {
+function doRegister(){
   const email=document.getElementById('rEmail').value.trim();
   const email2=document.getElementById('rEmail2').value.trim();
   const pass=document.getElementById('rPass').value;
@@ -1222,7 +1168,7 @@ function doRegister() {
   const terms=document.getElementById('chkTerms').checked;
   const err=document.getElementById('regErr');
   const ok=document.getElementById('regOk');
-  err.style.display='none'; ok.style.display='none';
+  err.style.display='none';ok.style.display='none';
   if(!email||!pass||!name){showErr(err,'Email, kata sandi, dan nama wajib diisi.');return}
   if(email!==email2){showErr(err,'Email tidak cocok.');return}
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showErr(err,'Format email tidak valid.');return}
@@ -1230,91 +1176,74 @@ function doRegister() {
   if(!terms){showErr(err,'Anda harus menyetujui Ketentuan Penggunaan.');return}
   if(getDB().find(x=>x.email.toLowerCase()===email.toLowerCase())){showErr(err,'Email sudah terdaftar.');return}
   const u={id:Date.now(),email,password:pass,name,dob,gender,method:'Email',created:new Date().toLocaleDateString('id-ID')};
-  const db=getDB(); db.push(u); setDB(db);
-  ok.textContent='✓ Akun berhasil dibuat! Selamat datang!'; ok.style.display='block';
-  user=u; setSess(u);
-  setTimeout(enterApp, 900);
+  const db=getDB();db.push(u);setDB(db);
+  ok.textContent='✓ Akun berhasil dibuat! Selamat datang!';ok.style.display='block';
+  user=u;setSess(u);setTimeout(enterApp,900);
 }
-function showErr(el, msg){el.textContent=msg; el.style.display='block'}
-function doLogout() {
-  clrSess(); user=null; playing=false; clearInterval(prgInterval);
+function showErr(el,msg){el.textContent=msg;el.style.display='block'}
+function doLogout(){
+  clrSess();user=null;playing=false;clearInterval(prgInterval);
   document.getElementById('app').classList.remove('on');
   document.getElementById('loginPage').classList.remove('hide');
   closeAvDD();
 }
-function enterApp() {
+function enterApp(){
   document.getElementById('loginPage').classList.add('hide');
   document.getElementById('app').classList.add('on');
-  const init = (user.name||'U')[0].toUpperCase();
-  document.getElementById('topAvTxt').textContent = init;
-  document.getElementById('ddNameItem').textContent = user.name||'Profil';
-  userCustomName = user.name;
-  loadTrack(0);
-  goView('home');
+  const init=(user.name||'U')[0].toUpperCase();
+  document.getElementById('topAvTxt').textContent=init;
+  document.getElementById('ddNameItem').textContent=user.name||'Profil';
+  userCustomName=user.name;
+  loadTrack(0);goView('home');
 }
 
-/* ============================================================
-   NAVIGATION
-   ============================================================ */
-function goView(v) {
-  if (curView === v && v!=='playlist'&&v!=='artist'&&v!=='album') return;
-  curView = v;
-  if (viewStack[viewStack.length-1]!==v) viewStack.push(v);
-
-  // Hide all views
+/* NAVIGATION */
+function goView(v){
+  if(curView===v&&v!=='playlist'&&v!=='artist'&&v!=='album')return;
+  curView=v;
+  if(viewStack[viewStack.length-1]!==v)viewStack.push(v);
   ['Home','Search','Library','Playlist','Artist','Album','Profile','Settings','Premium','Queue'].forEach(n=>{
-    const el=document.getElementById('v'+n); if(el) el.style.display='none';
+    const el=document.getElementById('v'+n);if(el)el.style.display='none';
   });
-  const s = document.getElementById('mainScroll');
-  s.className='scroll'; // reset
-  // Search bar visibility
-  document.getElementById('searchBar').style.display = v==='search'?'block':'none';
-  // Show correct view
-  const el = document.getElementById('v'+v[0].toUpperCase()+v.slice(1));
-  if(el) el.style.display='block';
-  // Sidebar active
+  const s=document.getElementById('mainScroll');
+  s.className='scroll';
+  document.getElementById('searchBar').style.display=v==='search'?'block':'none';
+  const el=document.getElementById('v'+v[0].toUpperCase()+v.slice(1));
+  if(el)el.style.display='block';
   document.querySelectorAll('.sbn-item').forEach(n=>n.classList.remove('on'));
-  if(v==='home') document.getElementById('snHome').classList.add('on');
-  if(v==='search') document.getElementById('snSearch').classList.add('on');
-  // BG
-  const bgs = {home:'home-bg',search:'search-bg',liked:'liked-bg',artist:'artist-bg',profile:'profile-bg',settings:'settings-bg',premium:'premium-bg',queue:'queue-bg',album:'album-bg',library:'home-bg',playlist:'liked-bg'};
+  if(v==='home')document.getElementById('snHome').classList.add('on');
+  if(v==='search')document.getElementById('snSearch').classList.add('on');
+  // Mobile nav
+  ['home','search','library','profile'].forEach(id=>{
+    const el=document.getElementById('mn'+id[0].toUpperCase()+id.slice(1));
+    if(el)el.classList.toggle('on',v===id);
+  });
+  const bgs={home:'home-bg',search:'search-bg',liked:'liked-bg',artist:'artist-bg',profile:'profile-bg',settings:'settings-bg',premium:'premium-bg',queue:'queue-bg',album:'album-bg',library:'home-bg',playlist:'liked-bg'};
   s.classList.add(bgs[v]||'');
-  s.scrollTop = 0;
-  // Render views lazily
-  if(v==='profile') renderProfile();
-  if(v==='settings') renderSettings();
-  if(v==='premium') renderPremium();
-  if(v==='queue') renderQueue();
-  if(v==='library') renderLibraryView();
-  closeAvDD(); closeNotif();
+  s.scrollTop=0;
+  if(v==='profile')renderProfile();
+  if(v==='settings')renderSettings();
+  if(v==='premium')renderPremium();
+  if(v==='queue')renderQueue();
+  if(v==='library')renderLibraryView();
+  closeAvDD();closeNotif();
 }
-function goBack() {
-  if(viewStack.length>1){viewStack.pop(); goView(viewStack[viewStack.length-1])}
-  else{goView('home')}
+function mobNav(v){goView(v)}
+function goBack(){if(viewStack.length>1){viewStack.pop();goView(viewStack[viewStack.length-1])}else{goView('home')}}
+function goForward(){toast('Tidak ada halaman berikutnya')}
+function openPlaylist(id){
+  const pl=id==='liked'?{id:'liked',name:'Lagu yang Disukai',desc:'',type:'Playlist',img:null}:PLAYLISTS.find(p=>p.id===id)||PLAYLISTS[0];
+  renderPlaylistView(pl);goView('playlist');
 }
-function goForward(){ toast('Tidak ada halaman berikutnya'); }
-function openPlaylist(id) {
-  const pl = id==='liked' ? {id:'liked',name:'Lagu yang Disukai',desc:'',type:'Playlist',img:null} :
-    PLAYLISTS.find(p=>p.id===id)||PLAYLISTS[0];
-  renderPlaylistView(pl);
-  goView('playlist');
-}
-function openArtist(name) { renderArtistView(name); goView('artist'); }
-function openAlbum(id) { renderAlbumView(id); goView('album'); }
+function openArtist(name){renderArtistView(name);goView('artist')}
+function openAlbum(id){renderAlbumView(id);goView('album')}
 
-/* ============================================================
-   RENDER: HOME
-   ============================================================ */
-function setGreeting(){
-  const h=new Date().getHours();
-  document.getElementById('greeting').textContent=h<12?'Selamat pagi':h<18?'Selamat siang':'Selamat malam';
-}
+/* RENDER HOME */
+function setGreeting(){const h=new Date().getHours();document.getElementById('greeting').textContent=h<12?'Selamat pagi':h<18?'Selamat siang':'Selamat malam'}
 function renderHome(){
-  // Recents
-  const rItems = [{name:'Lagu yang Disukai',img:null,isLiked:true,id:'liked'},
-    ...PLAYLISTS.slice(0,3), ...ALBUMS.slice(0,2)];
-  document.getElementById('recents').innerHTML = rItems.map(r=>`
-    <div class="recent-card" onclick="${r.id?`openPlaylist('${r.id}')`:`openAlbum('${r.id}')`}">
+  const rItems=[{name:'Lagu yang Disukai',img:null,isLiked:true,id:'liked'},...PLAYLISTS.slice(0,3),...ALBUMS.slice(0,2)];
+  document.getElementById('recents').innerHTML=rItems.map(r=>`
+    <div class="recent-card" onclick="${r.isLiked||r.id?.startsWith('p')?`openPlaylist('${r.id}')`:`openAlbum('${r.id}')`}">
       <div class="rc-img ${r.isLiked?'grad':''}">
         ${r.isLiked?`<svg viewBox="0 0 24 24"><path d="M8.5 4.5a4.5 4.5 0 0 0-4.5 4.5c0 4.65 8.5 12 8.5 12s8.5-7.35 8.5-12a4.5 4.5 0 0 0-4.5-4.5c-1.36 0-2.576.596-3.4 1.536A4.487 4.487 0 0 0 8.5 4.5z"/></svg>`:
         `<img src="${r.img}" alt="" loading="lazy">`}
@@ -1322,13 +1251,13 @@ function renderHome(){
       <span class="rc-name">${r.name}</span>
       <div class="rc-play"><svg viewBox="0 0 24 24"><path d="M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1.625.781l11-8a1 1 0 0 0 0-1.562l-11-8A1 1 0 0 0 7 3z"/></svg></div>
     </div>`).join('');
-  renderCards('mfy', PLAYLISTS.map(p=>({name:p.name,sub:p.type,img:p.img,action:`openPlaylist('${p.id}')`})));
-  renderCards('artGrid', ARTISTS.map(a=>({name:a.name,sub:'Artis',img:a.img,circle:true,action:`openArtist('${encodeURIComponent(a.name)}')`})));
-  renderCards('newRel', ALBUMS.map(a=>({name:a.name,sub:`Album • ${a.artist}`,img:a.img,action:`openAlbum('${a.id}')`})));
+  renderCards('mfy',PLAYLISTS.map(p=>({name:p.name,sub:p.type,img:p.img,action:`openPlaylist('${p.id}')`})));
+  renderCards('artGrid',ARTISTS.map(a=>({name:a.name,sub:'Artis',img:a.img,circle:true,action:`openArtist('${encodeURIComponent(a.name)}')`})));
+  renderCards('newRel',ALBUMS.map(a=>({name:a.name,sub:`Album • ${a.artist}`,img:a.img,action:`openAlbum('${a.id}')`})));
 }
 function renderCards(id,items){
   document.getElementById(id).innerHTML=items.map(c=>`
-    <div class="sp-card" onclick="${c.action||''}" oncontextmenu="showCtx(event.clientX,event.clientY);event.preventDefault()">
+    <div class="sp-card" onclick="${c.action||''}">
       <div class="sp-card-img ${c.circle?'circle':''}">
         <img src="${c.img}" alt="" loading="lazy" onerror="this.style.display='none'">
         <div class="card-play"><svg viewBox="0 0 24 24"><path d="M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1.625.781l11-8a1 1 0 0 0 0-1.562l-11-8A1 1 0 0 0 7 3z"/></svg></div>
@@ -1338,9 +1267,7 @@ function renderCards(id,items){
     </div>`).join('');
 }
 
-/* ============================================================
-   RENDER: SEARCH / BROWSE
-   ============================================================ */
+/* RENDER BROWSE */
 function renderBrowse(){
   document.getElementById('browseGrid').innerHTML=BROWSE_CATS.map(c=>`
     <div class="browse-card" style="background:${c.color}" onclick="toast('Menjelajahi: ${c.name}')">
@@ -1352,10 +1279,10 @@ function doSearch(q){
   const bs=document.getElementById('browseSection'),rs=document.getElementById('resultSection');
   const clr=document.getElementById('searchClr');
   if(!q.trim()){bs.style.display='block';rs.style.display='none';clr.style.display='none';return}
-  bs.style.display='none'; rs.style.display='block'; clr.style.display='flex';
-  const trk = TRACKS.filter(t=>t.title.toLowerCase().includes(q.toLowerCase())||t.artist.toLowerCase().includes(q.toLowerCase()));
-  const show = trk.length?trk:TRACKS.slice(0,5);
-  const top = show[0];
+  bs.style.display='none';rs.style.display='block';clr.style.display='flex';
+  const trk=TRACKS.filter(t=>t.title.toLowerCase().includes(q.toLowerCase())||t.artist.toLowerCase().includes(q.toLowerCase()));
+  const show=trk.length?trk:TRACKS.slice(0,5);
+  const top=show[0];
   document.getElementById('topResults').innerHTML=`
     <div>
       <div style="font-size:12px;font-weight:800;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px">HASIL TERATAS</div>
@@ -1375,58 +1302,47 @@ function doSearch(q){
           <div class="s-track-n">${i+1}</div>
           <div class="eq-anim"><span></span><span></span><span></span></div>
           <div class="s-track-img"><img src="${t.img}" alt="" loading="lazy"></div>
-          <div>
-            <div class="s-track-name ${tIdx===TRACKS.indexOf(t)?'c-green':''}">${t.title}</div>
-            <div class="s-track-art">${t.artist}</div>
-          </div>
+          <div><div class="s-track-name">${t.title}</div><div class="s-track-art">${t.artist}</div></div>
           <div class="s-track-dur">${fmtT(t.dur)}</div>
         </div>`).join('')}</div>
     </div>`;
-  const art = ARTISTS.filter(a=>a.name.toLowerCase().includes(q.toLowerCase()));
-  renderCards('srchArtists',(art.length?art:ARTISTS.slice(0,4)).map(a=>({name:a.name,sub:'Artis',img:a.img,circle:true,action:`openArtist('${encodeURIComponent(a.name)}')`})));
+  renderCards('srchArtists',(ARTISTS.filter(a=>a.name.toLowerCase().includes(q.toLowerCase()))||ARTISTS).slice(0,4).map(a=>({name:a.name,sub:'Artis',img:a.img,circle:true,action:`openArtist('${encodeURIComponent(a.name)}')`})));
   renderCards('srchAlbums',ALBUMS.slice(0,4).map(a=>({name:a.name,sub:`Album • ${a.artist}`,img:a.img,action:`openAlbum('${a.id}')`})));
 }
 function clearSearch(){document.getElementById('searchInp').value='';doSearch('')}
 
-/* ============================================================
-   RENDER: PLAYLIST
-   ============================================================ */
+/* RENDER PLAYLIST */
 function renderPlaylistView(pl){
-  const isLiked = pl.id==='liked';
-  const totalDur = TRACKS.reduce((s,t)=>s+t.dur,0);
+  const isLiked=pl.id==='liked';
+  const totalDur=TRACKS.reduce((s,t)=>s+t.dur,0);
   document.getElementById('vPlaylist').innerHTML=`
     <div class="pl-header">
       <div class="pl-cover">
         ${isLiked?`<svg viewBox="0 0 24 24"><path d="M8.5 4.5a4.5 4.5 0 0 0-4.5 4.5c0 4.65 8.5 12 8.5 12s8.5-7.35 8.5-12a4.5 4.5 0 0 0-4.5-4.5c-1.36 0-2.576.596-3.4 1.536A4.487 4.487 0 0 0 8.5 4.5z"/></svg>`
-        :`<img src="${pl.img}" alt="" onerror="this.parentElement.style.background='var(--bg3)'">`}
+        :`<img src="${pl.img}" alt="">`}
       </div>
       <div>
         <div class="pl-type">PLAYLIST</div>
         <div class="pl-name">${isLiked?'Lagu yang Disukai':pl.name}</div>
-        <div class="pl-desc">${isLiked?'':pl.desc}</div>
-        <div class="pl-meta">
-          <strong>Spotify</strong><span class="pl-meta-dot">•</span>
-          <span style="color:var(--text2)">${TRACKS.length} lagu,</span>
-          <span style="color:var(--text2)">sekitar ${Math.round(totalDur/60)} menit</span>
-        </div>
+        <div class="pl-desc">${pl.desc||''}</div>
+        <div class="pl-meta"><strong>Spotify</strong><span class="pl-meta-dot">•</span><span style="color:var(--text2)">${TRACKS.length} lagu, sekitar ${Math.round(totalDur/60)} menit</span></div>
       </div>
     </div>
     <div class="pl-actions">
       <div class="play-lg" onclick="playAll()"><svg viewBox="0 0 24 24"><path d="M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1.625.781l11-8a1 1 0 0 0 0-1.562l-11-8A1 1 0 0 0 7 3z"/></svg></div>
-      <div class="ac-btn" onclick="toast('Disimpan ke perpustakaan')"><svg viewBox="0 0 24 24"><path d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm11-8a8 8 0 1 0 0 16A8 8 0 0 0 12 4zm0 3a1 1 0 0 1 1 1 4 4 0 0 1 4 4 1 1 0 1 1-2 0 2 2 0 0 0-2-2 1 1 0 0 1-1-1V7z" fill="var(--text2)"/></svg></div>
-      <div class="ac-btn" onclick="toast('Diunduh untuk diputar offline')"><svg viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zm-8 14a1 1 0 1 1 0 2h16a1 1 0 1 1 0-2H4z" fill="var(--text2)"/></svg></div>
+      <div class="ac-btn" onclick="toast('Disimpan ke perpustakaan')"><svg viewBox="0 0 24 24"><path d="M8.5 4.5a4.5 4.5 0 0 0-4.5 4.5c0 4.65 8.5 12 8.5 12s8.5-7.35 8.5-12a4.5 4.5 0 0 0-4.5-4.5c-1.36 0-2.576.596-3.4 1.536A4.487 4.487 0 0 0 8.5 4.5z" fill="var(--text2)"/></svg></div>
       <div class="ac-btn" onclick="showCtx(200,200)"><svg viewBox="0 0 24 24"><path d="M4.5 13.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm15 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-7.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="var(--text2)"/></svg></div>
     </div>
     <div class="tl-head std">
-      <span style="text-align:center">#</span><span>JUDUL</span><span>ALBUM</span><span>TANGGAL DITAMBAHKAN</span>
-      <span style="text-align:right;padding-right:4px"><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--text2)"><path d="M1 6a1 1 0 0 1 1-1h20a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1h20a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1zm1 5a1 1 0 1 0 0 2h20a1 1 0 1 0 0-2H2z"/></svg></span>
+      <span style="text-align:center">#</span><span>JUDUL</span><span>ALBUM</span><span>TANGGAL</span>
+      <span style="text-align:right"><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--text2)"><path d="M1 6a1 1 0 0 1 1-1h20a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1h20a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1zm1 5a1 1 0 1 0 0 2h20a1 1 0 1 0 0-2H2z"/></svg></span>
     </div>
     <div class="tl">${TRACKS.map((t,i)=>renderTR(t,i,'std')).join('')}</div>`;
 }
 
 function renderTR(t,i,cls='std'){
-  const on = tIdx===i;
-  return `<div class="tr ${cls} ${on?'on':''}" onclick="playTrack(${i})" oncontextmenu="showCtx(event.clientX,event.clientY);event.preventDefault()">
+  const on=tIdx===i;
+  return`<div class="tr ${cls} ${on?'on':''}" onclick="playTrack(${i})">
     <div style="text-align:center;display:flex;align-items:center;justify-content:center">
       <span class="tr-num">${i+1}</span>
       <div class="eq-anim" style="display:${on&&playing?'flex':'none'}"><span></span><span></span><span></span></div>
@@ -1435,12 +1351,11 @@ function renderTR(t,i,cls='std'){
     <div class="tr-img-wrap">
       <div class="tr-img"><img src="${t.img}" alt="" loading="lazy"></div>
       <div>
-        <div class="tr-name ${on?'c-green':''}">${t.title}</div>
+        <div class="tr-name">${t.title}</div>
         <div class="tr-art"><span onclick="event.stopPropagation();openArtist('${encodeURIComponent(t.artist)}')">${t.artist}</span></div>
       </div>
     </div>
-    ${cls==='std'?`<div class="tr-album" onclick="event.stopPropagation();toast('Buka album: ${t.album}')">${t.album}</div>
-    <div class="tr-date">há 3 dias</div>`:''}
+    ${cls==='std'?`<div class="tr-album">${t.album}</div><div class="tr-date">3 hari lalu</div>`:''}
     <div class="tr-right">
       <div class="tr-heart ${liked.has(t.id)?'liked':''}" onclick="event.stopPropagation();toggleLike(${t.id},this)">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="${liked.has(t.id)?'var(--green)':'var(--text2)'}"><path d="M8.5 4.5a4.5 4.5 0 0 0-4.5 4.5c0 4.65 8.5 12 8.5 12s8.5-7.35 8.5-12a4.5 4.5 0 0 0-4.5-4.5c-1.36 0-2.576.596-3.4 1.536A4.487 4.487 0 0 0 8.5 4.5z"/></svg>
@@ -1457,13 +1372,11 @@ function toggleLike(id,el){
 }
 function playAll(){playTrack(0)}
 
-/* ============================================================
-   RENDER: ARTIST
-   ============================================================ */
+/* RENDER ARTIST */
 function renderArtistView(name){
-  const a = ARTISTS.find(x=>x.name===decodeURIComponent(name))||ARTISTS[0];
-  const artistTracks = TRACKS.filter(t=>t.artist.includes(a.name.split(' ')[0]));
-  const show = artistTracks.length ? artistTracks : TRACKS.slice(0,5);
+  const a=ARTISTS.find(x=>x.name===decodeURIComponent(name))||ARTISTS[0];
+  const show=TRACKS.filter(t=>t.artist.includes(a.name.split(' ')[0]));
+  const tks=show.length?show:TRACKS.slice(0,5);
   document.getElementById('vArtist').innerHTML=`
     <div class="artist-header">
       <div class="artist-header-bg" style="background-image:url('${a.img}')"></div>
@@ -1474,12 +1387,12 @@ function renderArtistView(name){
       </div>
     </div>
     <div class="pl-actions">
-      <div class="play-lg" onclick="playTrack(${TRACKS.indexOf(show[0])})"><svg viewBox="0 0 24 24"><path d="M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1.625.781l11-8a1 1 0 0 0 0-1.562l-11-8A1 1 0 0 0 7 3z"/></svg></div>
+      <div class="play-lg" onclick="playTrack(${TRACKS.indexOf(tks[0])})"><svg viewBox="0 0 24 24"><path d="M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1.625.781l11-8a1 1 0 0 0 0-1.562l-11-8A1 1 0 0 0 7 3z"/></svg></div>
       <div class="ac-btn" onclick="toast('Kamu mengikuti ${a.name}')"><svg viewBox="0 0 24 24"><path d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm11-8a8 8 0 1 0 0 16A8 8 0 0 0 12 4zm0 3a1 1 0 0 1 1 1 4 4 0 0 1 4 4 1 1 0 1 1-2 0 2 2 0 0 0-2-2 1 1 0 0 1-1-1V7z" fill="var(--text2)"/></svg></div>
       <div class="ac-btn" onclick="showCtx(200,200)"><svg viewBox="0 0 24 24"><path d="M4.5 13.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm15 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-7.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="var(--text2)"/></svg></div>
     </div>
-    <div class="section" style="padding-bottom:0"><div class="sec-head"><span class="sec-title">Populer</span></div></div>
-    <div class="tl" style="padding:0 8px">${show.map((t,i)=>renderTR(t,TRACKS.indexOf(t),'pl')).join('')}</div>
+    <div class="section"><div class="sec-head"><span class="sec-title">Populer</span></div></div>
+    <div class="tl" style="padding:0 8px">${tks.map((t,i)=>renderTR(t,TRACKS.indexOf(t),'pl')).join('')}</div>
     <div class="section"><div class="sec-head"><span class="sec-title">Diskografi</span><button class="sec-all" onclick="toast('Tampilkan semua album')">Tampilkan semua</button></div>
       <div class="cards">${ALBUMS.slice(0,4).map(al=>`
         <div class="sp-card" onclick="openAlbum('${al.id}')">
@@ -1488,7 +1401,7 @@ function renderArtistView(name){
           <div class="sp-card-sub">${al.year} • Album</div>
         </div>`).join('')}</div>
     </div>
-    <div class="section" style="padding-bottom:40px"><div class="sec-head"><span class="sec-title">Artis serupa</span></div>
+    <div class="section" style="padding-bottom:60px"><div class="sec-head"><span class="sec-title">Artis serupa</span></div>
       <div class="cards">${ARTISTS.filter(x=>x.name!==a.name).slice(0,4).map(x=>`
         <div class="sp-card" onclick="openArtist('${encodeURIComponent(x.name)}')">
           <div class="sp-card-img circle"><img src="${x.img}" alt="" loading="lazy"><div class="card-play"><svg viewBox="0 0 24 24"><path d="M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1.625.781l11-8a1 1 0 0 0 0-1.562l-11-8A1 1 0 0 0 7 3z"/></svg></div></div>
@@ -1499,11 +1412,9 @@ function renderArtistView(name){
     </div>`;
 }
 
-/* ============================================================
-   RENDER: ALBUM
-   ============================================================ */
+/* RENDER ALBUM */
 function renderAlbumView(id){
-  const al = ALBUMS.find(a=>a.id===id)||ALBUMS[0];
+  const al=ALBUMS.find(a=>a.id===id)||ALBUMS[0];
   document.getElementById('vAlbum').innerHTML=`
     <div class="album-header">
       <div class="album-cover"><img src="${al.img}" alt=""></div>
@@ -1515,43 +1426,31 @@ function renderAlbumView(id){
     </div>
     <div class="pl-actions">
       <div class="play-lg" onclick="playAll()"><svg viewBox="0 0 24 24"><path d="M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1.625.781l11-8a1 1 0 0 0 0-1.562l-11-8A1 1 0 0 0 7 3z"/></svg></div>
-      <div class="ac-btn" onclick="toast('Disimpan ke perpustakaan')"><svg viewBox="0 0 24 24"><path d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm11-8a8 8 0 1 0 0 16A8 8 0 0 0 12 4zm0 3a1 1 0 0 1 1 1 4 4 0 0 1 4 4 1 1 0 1 1-2 0 2 2 0 0 0-2-2 1 1 0 0 1-1-1V7z" fill="var(--text2)"/></svg></div>
+      <div class="ac-btn" onclick="toast('Disimpan ke perpustakaan')"><svg viewBox="0 0 24 24"><path d="M8.5 4.5a4.5 4.5 0 0 0-4.5 4.5c0 4.65 8.5 12 8.5 12s8.5-7.35 8.5-12a4.5 4.5 0 0 0-4.5-4.5c-1.36 0-2.576.596-3.4 1.536A4.487 4.487 0 0 0 8.5 4.5z" fill="var(--text2)"/></svg></div>
       <div class="ac-btn" onclick="showCtx(200,200)"><svg viewBox="0 0 24 24"><path d="M4.5 13.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm15 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-7.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="var(--text2)"/></svg></div>
     </div>
     <div class="tl-head pl"><span>#</span><span>JUDUL</span><span>DIPUTAR</span><span style="text-align:right"><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--text2)"><path d="M1 6a1 1 0 0 1 1-1h20a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1h20a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1zm1 5a1 1 0 1 0 0 2h20a1 1 0 1 0 0-2H2z"/></svg></span></div>
     <div class="tl">${TRACKS.map((t,i)=>renderTR(t,i,'pl')).join('')}</div>
-    <div style="padding:24px 24px 0;color:var(--text2);font-size:14px">${al.year} ${al.artist}</div>
-    <div style="padding:4px 24px 40px;font-size:13px;color:var(--text3)">℗ ${al.year} Sony Music Entertainment</div>`;
+    <div style="padding:24px 24px 60px;color:var(--text3);font-size:13px">${al.year} ${al.artist}</div>`;
 }
 
-/* ============================================================
-   RENDER: PROFILE
-   ============================================================ */
+/* RENDER PROFILE */
 function renderProfile(){
-  const name = userCustomName || user?.name || 'Pengguna';
-  const init = name[0].toUpperCase();
-  const plCount = PLAYLISTS.length;
+  const name=userCustomName||user?.name||'Pengguna';
+  const init=name[0].toUpperCase();
   document.getElementById('vProfile').innerHTML=`
     <div class="profile-top">
-      <div class="profile-av" onclick="openEditModal()">
-        ${user?.avatarImg?`<img src="${user.avatarImg}" alt="">`:`<span>${init}</span>`}
-      </div>
+      <div class="profile-av" onclick="openEditModal()"><span>${init}</span></div>
       <div>
         <div class="profile-type">PROFIL</div>
         <div class="profile-name">${name}</div>
-        <div class="profile-followers">
-          <span>${plCount}</span> playlist publik •
-          <span>42</span> pengikut •
-          <span>18</span> yang diikuti
-        </div>
+        <div class="profile-followers"><span>${PLAYLISTS.length}</span> playlist • <span>42</span> pengikut • <span>18</span> yang diikuti</div>
       </div>
     </div>
-    <div class="pl-actions">
-      <button class="edit-btn" onclick="openEditModal()">Edit profil</button>
-      <div class="ac-btn" onclick="showCtx(200,200)"><svg viewBox="0 0 24 24"><path d="M4.5 13.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm15 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-7.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="var(--text2)"/></svg></div>
-    </div>
+    <div class="profile-actions"><button class="edit-btn" onclick="openEditModal()">Edit profil</button></div>
     ${userBio?`<div style="padding:0 24px 16px;color:var(--text2);font-size:14px">${userBio}</div>`:''}
-    <div style="padding:0 24px"><div class="sec-head"><span class="sec-title">Playlist Publik</span></div>
+    <div style="padding:0 16px">
+      <div class="sec-head"><span class="sec-title">Playlist Publik</span></div>
       <div class="cards">${PLAYLISTS.map(p=>`
         <div class="sp-card" onclick="openPlaylist('${p.id}')">
           <div class="sp-card-img"><img src="${p.img}" alt="" loading="lazy"><div class="card-play"><svg viewBox="0 0 24 24"><path d="M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1.625.781l11-8a1 1 0 0 0 0-1.562l-11-8A1 1 0 0 0 7 3z"/></svg></div></div>
@@ -1559,7 +1458,7 @@ function renderProfile(){
           <div class="sp-card-sub">${p.type}</div>
         </div>`).join('')}</div>
     </div>
-    <div style="padding:24px;padding-bottom:40px">
+    <div style="padding:16px;padding-bottom:80px">
       <div class="sec-head"><span class="sec-title">Artis yang diikuti</span></div>
       <div class="cards">${ARTISTS.slice(0,4).map(a=>`
         <div class="sp-card" onclick="openArtist('${encodeURIComponent(a.name)}')">
@@ -1570,12 +1469,10 @@ function renderProfile(){
     </div>`;
 }
 function openEditModal(){
-  const name = userCustomName || user?.name || '';
-  document.getElementById('editName').value = name;
-  document.getElementById('editBio').value = userBio;
-  const init = (name||'?')[0].toUpperCase();
-  document.getElementById('editAvTxt').textContent = init;
-  document.getElementById('editAv').style.background = 'var(--green)';
+  const name=userCustomName||user?.name||'';
+  document.getElementById('editName').value=name;
+  document.getElementById('editBio').value=userBio;
+  document.getElementById('editAvTxt').textContent=(name||'?')[0].toUpperCase();
   document.getElementById('editModal').classList.add('on');
 }
 function closeEditModal(){document.getElementById('editModal').classList.remove('on')}
@@ -1583,23 +1480,18 @@ function saveProfile(){
   const n=document.getElementById('editName').value.trim();
   const b=document.getElementById('editBio').value.trim();
   if(!n){toast('Nama tidak boleh kosong');return}
-  userCustomName=n; userBio=b;
-  // Update user in db
-  const db=getDB(); const i=db.findIndex(x=>x.id===user.id);
+  userCustomName=n;userBio=b;
+  const db=getDB();const i=db.findIndex(x=>x.id===user.id);
   if(i>=0){db[i].name=n;setDB(db);user.name=n;setSess(user)}
   closeEditModal();
   document.getElementById('topAvTxt').textContent=n[0].toUpperCase();
   document.getElementById('ddNameItem').textContent=n;
-  renderProfile();
-  toast('Profil berhasil diperbarui!');
+  renderProfile();toast('Profil berhasil diperbarui!');
 }
 
-/* ============================================================
-   RENDER: SETTINGS
-   ============================================================ */
-const prefs = () => getPrefs();
+/* RENDER SETTINGS */
 function renderSettings(){
-  const p=prefs();
+  const p=getPrefs();
   document.getElementById('vSettings').innerHTML=`
     <div class="settings-wrap">
       <h1>Pengaturan</h1>
@@ -1607,114 +1499,70 @@ function renderSettings(){
         <h2>Akun</h2>
         <div class="setting-row">
           <div class="setting-info"><div class="setting-label">Email</div><div class="setting-desc">${user?.email||'—'}</div></div>
-          <button class="setting-btn" onclick="toast('Buka pengelola akun Spotify')">Kelola akun</button>
+          <button class="setting-btn" onclick="toast('Kelola akun Spotify')">Kelola akun</button>
         </div>
         <div class="setting-row">
           <div class="setting-info"><div class="setting-label">Paket saat ini</div><div class="setting-desc">Spotify Gratis</div></div>
-          <button class="setting-btn primary" onclick="goView('premium')">Upgrade ke Premium</button>
+          <button class="setting-btn primary" onclick="goView('premium')">Upgrade</button>
         </div>
         <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Kata sandi</div><div class="setting-desc">Ubah kata sandi akun kamu</div></div>
-          <button class="setting-btn" onclick="openChangePass()">Ubah kata sandi</button>
+          <div class="setting-info"><div class="setting-label">Kata sandi</div></div>
+          <button class="setting-btn" onclick="toast('Ubah kata sandi')">Ubah</button>
         </div>
       </div>
       <div class="settings-section">
-        <h2>Tampilan</h2>
+        <h2>Pemutaran</h2>
         <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Kualitas streaming</div><div class="setting-desc">Atur kualitas audio saat streaming</div></div>
+          <div class="setting-info"><div class="setting-label">Kualitas streaming</div></div>
           <select class="setting-select" onchange="setPrefs({quality:this.value});toast('Kualitas: '+this.value)">
             <option ${p.quality==='low'?'selected':''}>Rendah</option>
             <option ${(!p.quality||p.quality==='normal')?'selected':''}>Normal</option>
             <option ${p.quality==='high'?'selected':''}>Tinggi</option>
-            <option ${p.quality==='extreme'?'selected':''}>Sangat tinggi</option>
           </select>
         </div>
         <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Kualitas download</div><div class="setting-desc">Atur kualitas audio saat diunduh</div></div>
-          <select class="setting-select" onchange="setPrefs({dlQuality:this.value});toast('Kualitas unduhan: '+this.value)">
-            <option ${p.dlQuality==='normal'?'selected':''}>Normal</option>
-            <option ${(!p.dlQuality||p.dlQuality==='high')?'selected':''}>Tinggi</option>
-            <option ${p.dlQuality==='extreme'?'selected':''}>Sangat tinggi</option>
-          </select>
-        </div>
-        <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Tampilkan lagu tidak tersedia</div><div class="setting-desc">Sembunyikan lagu yang tidak tersedia di negara kamu</div></div>
-          <div class="toggle ${p.hideUnavail?'':'on'}" onclick="togglePref(this,'hideUnavail')"></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Tampilan kanvas</div><div class="setting-desc">Tampilkan animasi pendek saat memutar lagu</div></div>
-          <div class="toggle ${p.canvas===false?'':'on'}" onclick="togglePref(this,'canvas')"></div>
-        </div>
-      </div>
-      <div class="settings-section">
-        <h2>Pemutaran Musik</h2>
-        <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Putar fade</div><div class="setting-desc">Transisi yang halus antar lagu</div></div>
-          <div class="toggle ${p.crossfade?'on':''}" onclick="togglePref(this,'crossfade')"></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Normalisasi volume</div><div class="setting-desc">Ratakan volume antar lagu</div></div>
+          <div class="setting-info"><div class="setting-label">Normalisasi volume</div></div>
           <div class="toggle ${p.normalize===false?'':'on'}" onclick="togglePref(this,'normalize')"></div>
         </div>
         <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Podcast & Audiobook</div><div class="setting-desc">Tampilkan podcast dan audiobook di tampilan beranda</div></div>
-          <div class="toggle ${p.showPodcast===false?'':'on'}" onclick="togglePref(this,'showPodcast')"></div>
+          <div class="setting-info"><div class="setting-label">Autoplay</div></div>
+          <div class="toggle ${p.autoplay===false?'':'on'}" onclick="togglePref(this,'autoplay')"></div>
         </div>
         <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Autoplay</div><div class="setting-desc">Terus memutar musik setelah playlist selesai</div></div>
-          <div class="toggle ${p.autoplay===false?'':'on'}" onclick="togglePref(this,'autoplay')"></div>
+          <div class="setting-info"><div class="setting-label">Putar fade (crossfade)</div></div>
+          <div class="toggle ${p.crossfade?'on':''}" onclick="togglePref(this,'crossfade')"></div>
         </div>
       </div>
       <div class="settings-section">
         <h2>Privasi</h2>
         <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Sesi pribadi</div><div class="setting-desc">Dengarkan tanpa mempengaruhi aktivitas yang terlihat</div></div>
+          <div class="setting-info"><div class="setting-label">Sesi pribadi</div></div>
           <div class="toggle ${p.private?'on':''}" onclick="togglePref(this,'private')"></div>
         </div>
         <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Tampilkan aktivitas teman</div><div class="setting-desc">Bagikan apa yang kamu dengarkan kepada teman</div></div>
+          <div class="setting-info"><div class="setting-label">Tampilkan aktivitas teman</div></div>
           <div class="toggle ${p.friendActivity===false?'':'on'}" onclick="togglePref(this,'friendActivity')"></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Profil terlihat</div><div class="setting-desc">Izinkan orang lain menemukan profil kamu</div></div>
-          <div class="toggle ${p.publicProfile===false?'':'on'}" onclick="togglePref(this,'publicProfile')"></div>
         </div>
       </div>
       <div class="settings-section">
         <h2>Notifikasi</h2>
         <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Notifikasi email</div><div class="setting-desc">Berita dan pembaruan dari Spotify</div></div>
+          <div class="setting-info"><div class="setting-label">Notifikasi email</div></div>
           <div class="toggle ${p.emailNotif===false?'':'on'}" onclick="togglePref(this,'emailNotif')"></div>
         </div>
         <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Notifikasi push</div><div class="setting-desc">Pembaruan langsung di perangkat kamu</div></div>
+          <div class="setting-info"><div class="setting-label">Notifikasi push</div></div>
           <div class="toggle ${p.pushNotif===false?'':'on'}" onclick="togglePref(this,'pushNotif')"></div>
-        </div>
-      </div>
-      <div class="settings-section">
-        <h2>Bahasa</h2>
-        <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Bahasa antarmuka</div></div>
-          <select class="setting-select" onchange="toast('Bahasa diubah ke: '+this.options[this.selectedIndex].text)">
-            <option selected>Bahasa Indonesia</option>
-            <option>English (UK)</option>
-            <option>English (US)</option>
-            <option>Português</option>
-            <option>Español</option>
-            <option>Français</option>
-            <option>日本語</option>
-            <option>한국어</option>
-          </select>
         </div>
       </div>
       <div class="settings-section">
         <h2>Lainnya</h2>
         <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Hapus cache unduhan</div><div class="setting-desc">Bebaskan penyimpanan perangkat</div></div>
-          <button class="setting-btn" onclick="toast('Cache berhasil dihapus!')">Hapus cache</button>
+          <div class="setting-info"><div class="setting-label">Hapus cache</div></div>
+          <button class="setting-btn" onclick="toast('Cache berhasil dihapus!')">Hapus</button>
         </div>
         <div class="setting-row">
-          <div class="setting-info"><div class="setting-label">Hapus akun</div><div class="setting-desc">Tindakan ini bersifat permanen dan tidak dapat dibatalkan</div></div>
+          <div class="setting-info"><div class="setting-label">Hapus akun</div><div class="setting-desc">Tindakan permanen dan tidak dapat dibatalkan</div></div>
           <button class="setting-btn danger" onclick="deleteAccount()">Hapus akun</button>
         </div>
       </div>
@@ -1722,166 +1570,71 @@ function renderSettings(){
 }
 function togglePref(el,key){
   el.classList.toggle('on');
-  const val=el.classList.contains('on');
-  setPrefs({[key]:val});
-  const labels={crossfade:'Putar fade',canvas:'Kanvas',normalize:'Normalisasi',autoplay:'Autoplay',private:'Sesi pribadi',friendActivity:'Aktivitas teman',emailNotif:'Notifikasi email',pushNotif:'Notifikasi push',hideUnavail:'Sembunyikan lagu',publicProfile:'Profil terlihat',showPodcast:'Podcast & Audiobook'};
-  toast(`${labels[key]||key}: ${val?'Aktif':'Nonaktif'}`);
-}
-function openChangePass(){
-  const modal=document.getElementById('editModal');
-  document.getElementById('editModal').querySelector('h2').textContent='Ubah Kata Sandi';
-  document.getElementById('editModal').querySelector('.settings-form').innerHTML=`
-    <div><label class="sf-label">Kata sandi saat ini</label><input class="sf-input" type="password" id="oldPass" placeholder="Kata sandi lama"></div>
-    <div><label class="sf-label">Kata sandi baru</label><input class="sf-input" type="password" id="newPass" placeholder="Min. 8 karakter"></div>
-    <div><label class="sf-label">Konfirmasi kata sandi</label><input class="sf-input" type="password" id="confPass" placeholder="Ulangi kata sandi baru"></div>
-    <button class="setting-btn primary" style="align-self:flex-start;margin-top:8px" onclick="changePass()">Simpan kata sandi</button>`;
-  document.getElementById('editModal').querySelector('.sf-avatar-wrap').style.display='none';
-  modal.classList.add('on');
-}
-function changePass(){
-  const op=document.getElementById('oldPass')?.value;
-  const np=document.getElementById('newPass')?.value;
-  const cp=document.getElementById('confPass')?.value;
-  if(!op||!np||!cp){toast('Isi semua kolom!');return}
-  if(np.length<8){toast('Kata sandi baru minimal 8 karakter!');return}
-  if(np!==cp){toast('Konfirmasi tidak cocok!');return}
-  if(user&&op!==user.password&&user.method==='Email'){toast('Kata sandi lama salah!');return}
-  const db=getDB();const i=db.findIndex(x=>x.id===user.id);
-  if(i>=0){db[i].password=np;setDB(db);user.password=np;setSess(user)}
-  closeEditModal(); toast('Kata sandi berhasil diubah!');
+  setPrefs({[key]:el.classList.contains('on')});
+  toast(`Pengaturan diperbarui`);
 }
 function deleteAccount(){
-  if(!confirm('Yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan.'))return;
-  const db=getDB().filter(x=>x.id!==user.id);setDB(db);
-  doLogout(); toast('Akun berhasil dihapus.');
+  if(!confirm('Yakin ingin menghapus akun?'))return;
+  const db=getDB().filter(x=>x.id!==user.id);setDB(db);doLogout();toast('Akun berhasil dihapus.');
 }
 
-/* ============================================================
-   RENDER: PREMIUM
-   ============================================================ */
+/* RENDER PREMIUM */
 function renderPremium(){
   document.getElementById('vPremium').innerHTML=`
     <div class="premium-hero">
       <div style="font-size:13px;font-weight:800;letter-spacing:3px;color:var(--green);margin-bottom:16px">SPOTIFY PREMIUM</div>
       <h1>Musik tanpa batas.<br>Tanpa iklan.</h1>
-      <p>Dengarkan kapan saja, di mana saja. Tanpa gangguan.</p>
+      <p>Dengarkan kapan saja, di mana saja.</p>
       <button class="premium-hero-btn" onclick="toast('🎉 Selamat datang di Spotify Premium!')">Coba Premium 3 bulan gratis</button>
       <p style="font-size:12px;color:var(--text3);margin-top:12px">Kemudian Rp 54.990/bulan. Batalkan kapan saja.</p>
     </div>
-    <div style="padding:0 24px 16px">
-      <h2 style="font-size:28px;font-weight:900;text-align:center;margin-bottom:28px">Pilih paket kamu</h2>
+    <div style="padding:0 0 16px"><h2 style="font-size:24px;font-weight:900;text-align:center;margin-bottom:20px;padding-top:16px">Pilih paket kamu</h2>
       <div class="plans-grid">
-        <div class="plan-card">
-          <div class="plan-name">Mini</div>
-          <div class="plan-price">Rp <span>19.990</span><span style="font-size:14px;color:var(--text2)">/minggu</span></div>
-          <ul class="plan-features">
-            <li>1 akun premium</li>
-            <li>Pemutaran on-demand di perangkat</li>
-            <li>Download 30 lagu</li>
-            <li>Kualitas audio tinggi</li>
-            <li>Tanpa iklan saat mendengarkan musik</li>
-          </ul>
-          <button class="plan-btn outline" onclick="toast('Berlangganan Mini')">Mulai sekarang</button>
-        </div>
-        <div class="plan-card featured">
-          <div class="plan-badge">POPULER</div>
-          <div class="plan-name">Individual</div>
-          <div class="plan-price">Rp <span>54.990</span><span style="font-size:14px;color:var(--text2)">/bulan</span></div>
-          <ul class="plan-features">
-            <li>1 akun premium</li>
-            <li>Unduh lagu tanpa batas</li>
-            <li>Pemutaran on-demand</li>
-            <li>Kualitas audio sangat tinggi</li>
-            <li>Tanpa iklan</li>
-            <li>Putar di mana saja</li>
-          </ul>
-          <button class="plan-btn" onclick="toast('🎉 Berlangganan Individual — 3 bulan gratis dimulai!')">Coba gratis 3 bulan</button>
-        </div>
-        <div class="plan-card">
-          <div class="plan-name">Duo</div>
-          <div class="plan-price">Rp <span>76.990</span><span style="font-size:14px;color:var(--text2)">/bulan</span></div>
-          <ul class="plan-features">
-            <li>2 akun premium</li>
-            <li>Diskon bersama</li>
-            <li>Playlist Duo Mix</li>
-            <li>Unduh lagu tanpa batas</li>
-            <li>Tanpa iklan</li>
-          </ul>
-          <button class="plan-btn outline" onclick="toast('Berlangganan Duo')">Mulai sekarang</button>
-        </div>
-        <div class="plan-card">
-          <div class="plan-name">Family</div>
-          <div class="plan-price">Rp <span>89.990</span><span style="font-size:14px;color:var(--text2)">/bulan</span></div>
-          <ul class="plan-features">
-            <li>Hingga 6 akun premium</li>
-            <li>Kontrol musik anak</li>
-            <li>Playlist Family Mix</li>
-            <li>Unduh lagu tanpa batas</li>
-            <li>Tanpa iklan</li>
-          </ul>
-          <button class="plan-btn outline" onclick="toast('Berlangganan Family')">Mulai sekarang</button>
-        </div>
-        <div class="plan-card">
-          <div class="plan-name">Student</div>
-          <div class="plan-price">Rp <span>27.490</span><span style="font-size:14px;color:var(--text2)">/bulan</span></div>
-          <ul class="plan-features">
-            <li>1 akun premium terverifikasi</li>
-            <li>Diskon khusus pelajar</li>
-            <li>Unduh lagu tanpa batas</li>
-            <li>Kualitas audio sangat tinggi</li>
-            <li>Tanpa iklan</li>
-          </ul>
-          <button class="plan-btn outline" onclick="toast('Berlangganan Student')">Mulai sekarang</button>
-        </div>
-      </div>
-      <div style="text-align:center;color:var(--text2);font-size:12px;padding:0 24px 40px">
-        Semua paket mencakup Uji Coba Gratis Spotify Premium selama 3 bulan (hanya bagi anggota baru).
-        Kemudian harga reguler berlaku. <a style="color:#fff;text-decoration:underline;cursor:pointer" onclick="toast('Buka syarat lengkap')">Syarat berlaku.</a>
+        ${[{name:'Mini',price:'19.990',unit:'minggu',features:['1 akun premium','Pemutaran on-demand','Download 30 lagu','Kualitas audio tinggi','Tanpa iklan']},
+          {name:'Individual',price:'54.990',unit:'bulan',featured:true,features:['1 akun premium','Unduh lagu tanpa batas','Kualitas audio sangat tinggi','Tanpa iklan','Putar di mana saja']},
+          {name:'Duo',price:'76.990',unit:'bulan',features:['2 akun premium','Playlist Duo Mix','Unduh tanpa batas','Tanpa iklan']},
+          {name:'Family',price:'89.990',unit:'bulan',features:['Hingga 6 akun','Kontrol musik anak','Playlist Family Mix','Tanpa iklan']},
+          {name:'Student',price:'27.490',unit:'bulan',features:['1 akun terverifikasi','Diskon khusus pelajar','Unduh tanpa batas','Tanpa iklan']}
+        ].map(p=>`
+          <div class="plan-card ${p.featured?'featured':''}">
+            ${p.featured?'<div class="plan-badge">POPULER</div>':''}
+            <div class="plan-name">${p.name}</div>
+            <div class="plan-price">Rp <span>${p.price}</span><span>/${p.unit}</span></div>
+            <ul class="plan-features">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul>
+            <button class="plan-btn ${p.featured?'':'outline'}" onclick="toast('Berlangganan ${p.name}')">${p.featured?'Coba gratis 3 bulan':'Mulai sekarang'}</button>
+          </div>`).join('')}
       </div>
     </div>`;
 }
 
-/* ============================================================
-   RENDER: QUEUE
-   ============================================================ */
+/* RENDER QUEUE */
 function renderQueue(){
-  const cur = TRACKS[tIdx];
-  const next = TRACKS.slice(tIdx+1,tIdx+8);
+  const cur=TRACKS[tIdx];
+  const next=TRACKS.slice(tIdx+1,tIdx+8);
   document.getElementById('vQueue').innerHTML=`
     <div class="queue-page">
       <div class="queue-now">
         <div class="queue-now-title">Sedang diputar</div>
         <div class="queue-now-card">
           <div class="queue-now-img"><img src="${cur.img}" alt="" style="width:100%;height:100%;object-fit:cover"></div>
-          <div style="flex:1;overflow:hidden">
-            <div style="font-size:15px;font-weight:700;color:var(--green);margin-bottom:3px">${cur.title}</div>
-            <div style="font-size:13px;color:var(--text2)">${cur.artist}</div>
-          </div>
-          <div class="tr-heart ${liked.has(cur.id)?'liked':''}" onclick="toggleLike(${cur.id},this)" style="display:block;margin-left:8px">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="${liked.has(cur.id)?'var(--green)':'var(--text2)'}"><path d="M8.5 4.5a4.5 4.5 0 0 0-4.5 4.5c0 4.65 8.5 12 8.5 12s8.5-7.35 8.5-12a4.5 4.5 0 0 0-4.5-4.5c-1.36 0-2.576.596-3.4 1.536A4.487 4.487 0 0 0 8.5 4.5z"/></svg>
-          </div>
+          <div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--green);margin-bottom:3px">${cur.title}</div><div style="font-size:13px;color:var(--text2)">${cur.artist}</div></div>
         </div>
       </div>
       <div class="queue-next-title">Selanjutnya</div>
       ${next.map((t,i)=>`
         <div class="q-item" onclick="playTrack(${tIdx+i+1})">
           <div class="q-img"><img src="${t.img}" alt="" loading="lazy"></div>
-          <div class="q-info">
-            <div class="q-name">${t.title}</div>
-            <div class="q-art">${t.artist}</div>
-          </div>
+          <div class="q-info"><div class="q-name">${t.title}</div><div class="q-art">${t.artist}</div></div>
           <div class="q-dur">${fmtT(t.dur)}</div>
         </div>`).join('')}
     </div>`;
 }
 
-/* ============================================================
-   RENDER: LIBRARY
-   ============================================================ */
+/* RENDER LIBRARY */
 function renderLibrarySidebar(){
   const items=[
     {name:'Lagu yang Disukai',sub:`Playlist • ${TRACKS.length} lagu`,isLiked:true,id:'liked',pinned:true},
-    ...PLAYLISTS.map(p=>({name:p.name,sub:`Playlist • Spotify`,img:p.img,id:p.id})),
+    ...PLAYLISTS.map(p=>({name:p.name,sub:'Playlist • Spotify',img:p.img,id:p.id})),
     ...ARTISTS.slice(0,3).map(a=>({name:a.name,sub:'Artis',img:a.img,circle:true,isArtist:true})),
     ...ALBUMS.slice(0,2).map(a=>({name:a.name,sub:`Album • ${a.artist}`,img:a.img,id:a.id,isAlbum:true})),
   ];
@@ -1892,76 +1645,83 @@ function renderLibrarySidebar(){
         ${it.isLiked?`<svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(255,255,255,.8)"><path d="M8.5 4.5a4.5 4.5 0 0 0-4.5 4.5c0 4.65 8.5 12 8.5 12s8.5-7.35 8.5-12a4.5 4.5 0 0 0-4.5-4.5c-1.36 0-2.576.596-3.4 1.536A4.487 4.487 0 0 0 8.5 4.5z"/></svg>`
         :`<img src="${it.img}" alt="" loading="lazy">`}
       </div>
-      <div class="lib-info">
-        <div class="lib-name">${it.name}</div>
-        <div class="lib-sub">${it.sub||''}</div>
-      </div>
+      <div class="lib-info"><div class="lib-name">${it.name}</div><div class="lib-sub">${it.sub||''}</div></div>
       ${it.pinned?`<svg class="lib-pin" viewBox="0 0 16 16"><path d="M9.5 1.5l3 3-7 7H3v-2.5l7-7z"/></svg>`:''}
     </div>`).join('');
 }
 function renderLibraryView(){
-  document.getElementById('libViewItems').innerHTML = document.getElementById('libItems').innerHTML.replace(/class="lib-item/g,'class="lib-item" style="padding:12px 8px"');
+  document.getElementById('libViewItems').innerHTML=document.getElementById('libItems').innerHTML;
 }
-function libFilter(el,type){
-  document.querySelectorAll('.lib-chip').forEach(c=>c.classList.remove('on'));
-  el.classList.add('on');
-  toast(`Filter: ${el.textContent}`);
-}
+function libFilter(el,type){document.querySelectorAll('.lib-chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');toast(`Filter: ${el.textContent}`)}
 function newPlaylist(){toast('Playlist baru telah dibuat!')}
 
-/* ============================================================
-   NOTIFICATIONS
-   ============================================================ */
+/* NOTIFICATIONS */
 function renderNotifs(){
   document.getElementById('notifList').innerHTML=NOTIFS.map(n=>`
     <div class="notif-item">
       <div class="notif-icon">${n.icon}</div>
-      <div style="flex:1">
-        <div class="notif-text">${n.text}</div>
-        <div class="notif-time">${n.time}</div>
-      </div>
+      <div style="flex:1"><div class="notif-text">${n.text}</div><div class="notif-time">${n.time}</div></div>
       ${n.unread?'<div class="notif-unread"></div>':''}
     </div>`).join('');
 }
-function toggleNotif(){
-  document.getElementById('notifPanel').classList.toggle('on');
-  closeAvDD();
-}
+function toggleNotif(){document.getElementById('notifPanel').classList.toggle('on');closeAvDD()}
 function closeNotif(){document.getElementById('notifPanel').classList.remove('on')}
 
-/* ============================================================
-   CONTEXT MENU
-   ============================================================ */
+/* CONTEXT MENU */
 function showCtx(x,y){
   const m=document.getElementById('ctxMenu');
-  const vw=window.innerWidth, vh=window.innerHeight;
+  const vw=window.innerWidth,vh=window.innerHeight;
   m.style.left=(x+180>vw?x-180:x)+'px';
   m.style.top=(y+200>vh?y-200:y)+'px';
   m.classList.add('on');
 }
 
-/* ============================================================
-   PLAYER
-   ============================================================ */
-function loadTrack(i){
-  tIdx=Math.max(0,Math.min(i,TRACKS.length-1));
-  const t=TRACKS[tIdx]; prog=0;
+/* PLAYER */
+function updateAllPlayers(){
+  const t=TRACKS[tIdx];
+  // Desktop
   document.getElementById('plName').textContent=t.title;
   document.getElementById('plArtist').innerHTML=`<span onclick="openArtist('${encodeURIComponent(t.artist)}')">${t.artist}</span>`;
-  const img=document.getElementById('plImg');
-  img.src=t.img; img.style.display='block';
-  img.onerror=()=>{img.style.display='none'};
-  document.getElementById('progBar').style.width='0%';
-  document.getElementById('progBar').dataset.total=t.dur;
-  document.getElementById('curTime').textContent='0:00';
+  const img=document.getElementById('plImg');img.src=t.img;img.style.display='block';
   document.getElementById('totTime').textContent=fmtT(t.dur);
+  // Mobile mini
+  document.getElementById('mobPlTrack').textContent=t.title;
+  document.getElementById('mobPlArtist').textContent=t.artist;
+  document.getElementById('mobPlImg').src=t.img;
+  // Expanded
+  document.getElementById('pexTrack').textContent=t.title;
+  document.getElementById('pexArtist').textContent=t.artist;
+  document.getElementById('pexImg').src=t.img;
+  document.getElementById('pexTotTime').textContent=fmtT(t.dur);
+  document.getElementById('pexProgBar').dataset.total=t.dur;
+  document.getElementById('progBar').dataset.total=t.dur;
+  // Hearts
   heartOn=liked.has(t.id);
-  document.getElementById('plHeartIco').setAttribute('fill',heartOn?'var(--green)':'var(--text2)');
+  const hc=heartOn?'var(--green)':'var(--text2)';
+  document.getElementById('plHeartIco').setAttribute('fill',hc);
+  document.getElementById('mobHeartIco').setAttribute('fill',hc);
+  document.getElementById('pexHeartIco').setAttribute('fill',hc);
+}
+function loadTrack(i){
+  tIdx=Math.max(0,Math.min(i,TRACKS.length-1));
+  prog=0;
+  updateAllPlayers();
+  document.getElementById('progBar').style.width='0%';
+  document.getElementById('pexProgBar').style.width='0%';
+  document.getElementById('curTime').textContent='0:00';
+  document.getElementById('pexCurTime').textContent='0:00';
 }
 function togglePlay(){
   playing=!playing;
+  // Desktop
   document.getElementById('playIco').style.display=playing?'none':'block';
   document.getElementById('pauseIco').style.display=playing?'block':'none';
+  // Mobile mini
+  document.getElementById('mobPlayIco').style.display=playing?'none':'block';
+  document.getElementById('mobPauseIco').style.display=playing?'block':'none';
+  // Expanded
+  document.getElementById('pexPlayIco').style.display=playing?'none':'block';
+  document.getElementById('pexPauseIco').style.display=playing?'block':'none';
   playing?startProg():clearInterval(prgInterval);
 }
 function startProg(){
@@ -1969,57 +1729,56 @@ function startProg(){
   const total=parseInt(document.getElementById('progBar').dataset.total||200);
   prgInterval=setInterval(()=>{
     prog=Math.min(prog+1,total);
-    document.getElementById('progBar').style.width=(prog/total*100)+'%';
+    const pct=(prog/total*100)+'%';
+    document.getElementById('progBar').style.width=pct;
+    document.getElementById('pexProgBar').style.width=pct;
     document.getElementById('curTime').textContent=fmtT(prog);
-    if(prog>=total){
-      if(repeat===2){prog=0;startProg()}
-      else nextTrack();
-    }
+    document.getElementById('pexCurTime').textContent=fmtT(prog);
+    if(prog>=total){if(repeat===2){prog=0;startProg()}else nextTrack()}
   },1000);
 }
 function playTrack(i){loadTrack(i);if(!playing)togglePlay();else{clearInterval(prgInterval);startProg()}}
-function prevTrack(){if(prog>3){prog=0;document.getElementById('progBar').style.width='0%';document.getElementById('curTime').textContent='0:00';if(playing)startProg()}else{loadTrack(tIdx>0?tIdx-1:TRACKS.length-1);if(playing)startProg()}}
+function prevTrack(){if(prog>3){prog=0;document.getElementById('progBar').style.width='0%';document.getElementById('pexProgBar').style.width='0%';document.getElementById('curTime').textContent='0:00';document.getElementById('pexCurTime').textContent='0:00';if(playing)startProg()}else{loadTrack(tIdx>0?tIdx-1:TRACKS.length-1);if(playing)startProg()}}
 function nextTrack(){const n=shuffle?Math.floor(Math.random()*TRACKS.length):(tIdx+1)%TRACKS.length;loadTrack(n);if(playing)startProg()}
-function playAll(){playTrack(0)}
 function seekTo(e){
-  const r=document.getElementById('progWrap').getBoundingClientRect();
+  const bar=e.currentTarget.querySelector('.prog-bar')||e.currentTarget;
+  const wrap=e.currentTarget;
+  const r=wrap.getBoundingClientRect();
   const pct=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));
   const total=parseInt(document.getElementById('progBar').dataset.total||200);
   prog=Math.floor(pct*total);
   document.getElementById('progBar').style.width=(pct*100)+'%';
+  document.getElementById('pexProgBar').style.width=(pct*100)+'%';
   document.getElementById('curTime').textContent=fmtT(prog);
+  document.getElementById('pexCurTime').textContent=fmtT(prog);
   if(playing){clearInterval(prgInterval);startProg()}
 }
-function toggleShuffle(){shuffle=!shuffle;document.getElementById('shuffleCtrl').classList.toggle('on',shuffle);toast(shuffle?'Acak: Aktif':'Acak: Nonaktif')}
-function cycleRepeat(){
-  repeat=(repeat+1)%3;
-  const btn=document.getElementById('repeatCtrl');
-  btn.classList.toggle('on',repeat>0);
-  const ico=document.getElementById('repeatIco');
-  if(repeat===2){ico.innerHTML='<path d="M0 4.75A3.75 3.75 0 0 1 3.75 1h.75a1 1 0 0 1 0 2h-.75A1.75 1.75 0 0 0 2 4.75v5A1.75 1.75 0 0 0 3.75 11.5h14.5A1.75 1.75 0 0 0 20 9.75v-5A1.75 1.75 0 0 0 18.25 3H17a1 1 0 0 1 0-2h1.25A3.75 3.75 0 0 1 22 4.75v5a3.75 3.75 0 0 1-3.75 3.75H3.75A3.75 3.75 0 0 1 0 9.75v-5zM11 11a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0v-2z"/>'}
-  toast(['Ulangi: Nonaktif','Ulangi semua','Ulangi satu'][repeat]);
-}
+function toggleShuffle(){shuffle=!shuffle;document.getElementById('shuffleCtrl').classList.toggle('on',shuffle);document.getElementById('pexShuffle').classList.toggle('on',shuffle);toast(shuffle?'Acak: Aktif':'Acak: Nonaktif')}
+function cycleRepeat(){repeat=(repeat+1)%3;document.getElementById('repeatCtrl').classList.toggle('on',repeat>0);document.getElementById('pexRepeat').classList.toggle('on',repeat>0);toast(['Ulangi: Nonaktif','Ulangi semua','Ulangi satu'][repeat])}
 function toggleHeart(){
-  heartOn=!heartOn;
-  const t=TRACKS[tIdx];
+  heartOn=!heartOn;const t=TRACKS[tIdx];
   if(heartOn){liked.add(t.id);toast('Disimpan ke Lagu yang Disukai')}
   else{liked.delete(t.id);toast('Dihapus dari Lagu yang Disukai')}
-  document.getElementById('plHeartIco').setAttribute('fill',heartOn?'var(--green)':'var(--text2)');
+  const hc=heartOn?'var(--green)':'var(--text2)';
+  document.getElementById('plHeartIco').setAttribute('fill',hc);
+  document.getElementById('mobHeartIco').setAttribute('fill',hc);
+  document.getElementById('pexHeartIco').setAttribute('fill',hc);
 }
-function muteVol(){
-  muted=!muted;
-  document.getElementById('volBar').style.width=muted?'0%':vol+'%';
-  toast(muted?'Suara dimatikan':'Suara dinyalakan');
-}
+function muteVol(){muted=!muted;document.getElementById('volBar').style.width=muted?'0%':vol+'%';toast(muted?'Suara dimatikan':'Suara dinyalakan')}
 function setVol(e){
-  const r=document.getElementById('volWrap').getBoundingClientRect();
+  const r=e.currentTarget.getBoundingClientRect();
   vol=Math.round(Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)));
   document.getElementById('volBar').style.width=vol+'%';
+  if(document.getElementById('pexVolBar'))document.getElementById('pexVolBar').style.width=vol+'%';
   muted=vol===0;
 }
 const fmtT=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
 
-/* DROPDOWN / AVATAR */
+/* MOBILE EXPANDED PLAYER */
+function openPlayerExpanded(){document.getElementById('playerExpanded').classList.add('on')}
+function closePlayerExpanded(){document.getElementById('playerExpanded').classList.remove('on')}
+
+/* DROPDOWN */
 function toggleAvDD(){document.getElementById('avDD').classList.toggle('on')}
 function closeAvDD(){document.getElementById('avDD').classList.remove('on')}
 
@@ -2027,8 +1786,8 @@ function closeAvDD(){document.getElementById('avDD').classList.remove('on')}
 let _tT;
 function toast(msg){
   const el=document.getElementById('toast');
-  el.textContent=msg; el.classList.add('on');
-  clearTimeout(_tT); _tT=setTimeout(()=>el.classList.remove('on'),2500);
+  el.textContent=msg;el.classList.add('on');
+  clearTimeout(_tT);_tT=setTimeout(()=>el.classList.remove('on'),2500);
 }
 </script>
 </body>
